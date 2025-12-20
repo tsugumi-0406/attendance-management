@@ -1,0 +1,51 @@
+.main__inner{
+    width: 900px;
+    margin: 0px auto;
+    padding-bottom: 100px;
+}
+
+.main-title{
+    display: flex;
+    height: 40px;
+}
+
+.main-title__sentence{
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 0px;
+}
+
+.marin-title__div{
+    background-color: #000000;
+    height: 30px;
+    margin-top: 7px;
+    margin-right: 10px;
+}
+
+.month{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 30px auto;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
+
+.table{
+    color: #737373;
+    background-color: #FFFFFF;
+    width: 100%;
+}
+
+.th, .td{
+    border-bottom: solid 1px #737373;
+}
+
+.td{
+    text-align: center;
+}
+
+.td-detail{
+    font-weight: bold;
+    color: #000000;
+}

@@ -1,10 +1,14 @@
+.main{
+    padding-top: 150px;
+}
+
 .main__situation{
     background-color: #C8C8C8;
     color: #696969;
     height: 40px;
     width: 100px;
     padding: 8px 25px;
-    margin: 150px auto 0px auto;
+    margin: 0px auto 0px auto;
     font-weight: 700;
     border-radius: 50px;
 }

@@ -22,11 +22,10 @@
                 @csrf
                 <button class="header-inner__logout">ログアウト</button>
             </form>
-        </div>
-        
-</header>
+        </div>       
+    </header>
     
-    <main>
+    <main class="main">
         @yield('content')
     </main>
 </body>
