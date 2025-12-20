@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserLoginController;
+use App\Http\Controllers\AttendanceRegisterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +18,8 @@ use App\Http\Controllers\RegisterController;
 */
 
 Route::get('/register', [RegisterController::class, 'register']);
+
+Route::get('/login', [UserLoginController::class, 'login']);
+
+Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
+
