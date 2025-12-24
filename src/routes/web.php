@@ -10,6 +10,7 @@ use App\Http\Controllers\UserApplicationController;
 use App\Http\Controllers\AdministratorLoginController;
 use App\Http\Controllers\AdministratorAttendanceListController;
 use App\Http\Controllers\AdministratorAttendanceDetailController;
+use App\Http\Controllers\StaffListController;
 
 
 /*
@@ -40,4 +41,6 @@ Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
 Route::get('/admin/attendance/list', [AdministratorAttendanceListController::class, 'attendancelist']);
 
 Route::get('admin/attendance/{id}', [AdministratorAttendanceDetailController::class, 'detail']);
+
+Route::get('/admin/staff/list', [StaffListController::class, 'list']);
 
