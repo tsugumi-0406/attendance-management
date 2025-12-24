@@ -5,6 +5,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\AttendanceRegisterController;
 use App\Http\Controllers\UserAttendanceListController;
+use App\Http\Controllers\UserAttendanceDetailController;
+use App\Http\Controllers\UserApplicationController;
 
 
 /*
@@ -25,4 +27,8 @@ Route::get('/login', [UserLoginController::class, 'login']);
 Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
 
 Route::get('/attendance/list', [UserAttendanceListController::class, 'list']);
+
+Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail']);
+
+Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application']);
 
