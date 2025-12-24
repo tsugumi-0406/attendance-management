@@ -7,7 +7,7 @@
 @section('content')
     <div class="main__inner">
         <div class="main-title">
-            <div class="marin-title__div">a</div>
+            <div class="main-title__div">a</div>
             <h1 class="main-title__sentence"> 勤怠一覧</h1>
         </div>
         <div class="month">
