@@ -8,6 +8,7 @@ use App\Http\Controllers\UserAttendanceListController;
 use App\Http\Controllers\UserAttendanceDetailController;
 use App\Http\Controllers\UserApplicationController;
 use App\Http\Controllers\AdministratorLoginController;
+use App\Http\Controllers\AdministratorAttendanceListController;
 
 
 /*
@@ -34,4 +35,6 @@ Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'd
 Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application']);
 
 Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
+
+Route::get('/admin/attendance/list', [AdministratorAttendanceListController::class, 'attendancelist']);
 
