@@ -40,15 +40,15 @@
                 <label class="main-form__label"> パスワード</label>
                 <input type="password" name="password" class="main-form__input">
                 <div class="main-form__error">
-                    @error('name')
+                    @error('password')
                         {{ $errors->first('password') }}
                     @enderror
                 </div>
                 <label class="main-form__label">確認用パスワード</label>
                 <input type="password" class="main-form__input" name="password_confirmation">
                 <div class="main-form__error">
-                    @error('name')
-                        {{ $errors->first('password') }}
+                    @error('password_confirmation')
+                        {{ $message }}
                     @enderror
                 </div>
                  <input type="submit" class="main-dorm__submit" value="登録する">

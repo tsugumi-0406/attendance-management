@@ -13,6 +13,7 @@ use App\Http\Controllers\AdministratorAttendanceDetailController;
 use App\Http\Controllers\StaffListController;
 use App\Http\Controllers\StaffAttendanceListController;
 use App\Http\Controllers\AdministratorApplicationController;
+use App\Http\Controllers\ApprovalController;
 
 
 /*
@@ -26,9 +27,9 @@ use App\Http\Controllers\AdministratorApplicationController;
 |
 */
 
-Route::get('/register', [RegisterController::class, 'register']);
+// Route::get('/register', [RegisterController::class, 'register']);
 
-Route::get('/login', [UserLoginController::class, 'login']);
+// Route::get('/login', [UserLoginController::class, 'login']);
 
 Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
 
@@ -49,4 +50,6 @@ Route::get('/admin/staff/list', [StaffListController::class, 'list']);
 Route::get('/admin/attendance/staff/{id}', [StaffAttendanceListController::class, 'list']);
 
 Route::get('/stamp_correction_request/list', [AdministratorApplicationController::class, 'application']);
+
+Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [ApprovalController::class, 'approval']);
 
