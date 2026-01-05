@@ -27,9 +27,9 @@ use App\Http\Controllers\ApprovalController;
 |
 */
 
-Route::get('/register', [RegisterController::class, 'register']);
+// Route::get('/register', [RegisterController::class, 'register']);
 
-Route::get('/login', [UserLoginController::class, 'login']);
+// Route::get('/login', [UserLoginController::class, 'login']);
 
 Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
 
