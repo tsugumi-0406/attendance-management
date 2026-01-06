@@ -41,6 +41,11 @@ Route::get('/stamp_correction_request/list', [UserApplicationController::class, 
 
 Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
 
+Route::prefix('admin')->group(function () {
+    Route::post('/login', [AdministratorLoginController::class, 'authenticate']);
+    Route::post('/logout', [AdministratorLoginController::class, 'logout']);
+});
+
 Route::get('/admin/attendance/list', [AdministratorAttendanceListController::class, 'attendancelist']);
 
 Route::get('admin/attendance/{id}', [AdministratorAttendanceDetailController::class, 'detail']);

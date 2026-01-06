@@ -21,7 +21,7 @@
             <h1 class="main-title">
                 管理者ログイン
             </h1>
-            <form action="/login" class="main-form" method="post" novalidate>
+            <form action="/admin/login" class="main-form" method="post" novalidate>
             @csrf
                 <label for="" class="main-form__label">メールアドレス</label>
                 <input type="text" class="main-form__input" name="email">
