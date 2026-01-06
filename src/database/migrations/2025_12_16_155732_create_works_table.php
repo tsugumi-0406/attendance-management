@@ -19,6 +19,7 @@ class CreateWorksTable extends Migration
             $table->date('date');
             $table->time('attendance')->nullable();
             $table->time('leaving')->nullable();
+            $table->string('update');
             $table->timestamps();
 
             // 「1日1回」制約
