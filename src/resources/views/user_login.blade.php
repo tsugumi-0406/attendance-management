@@ -22,7 +22,7 @@
                 ログイン
             </h1>
             <form action="/login" class="main-form" method="post" novalidate>
-            @csrf
+                @csrf
                 <label for="" class="main-form__label">メールアドレス</label>
                 <input type="text" class="main-form__input" name="email">
                 <div class="main-form__error">
