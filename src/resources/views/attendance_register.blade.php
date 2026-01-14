@@ -5,9 +5,23 @@
 @endsection
 
 @section('content')
-<p class="main__situation">勤務外</p>
+@if($status === 'finished')
+    <p class="main__situation">退勤済</p>
 
-<p class="main__date">{{ now()->locale('ja')->isoFormat('YYYY年MM月DD日（ddd）') }}</p>
+@elseif ($status === 'breaking') 
+    <p class="main__situation">休憩中</p>
+
+@elseif ($status === 'working') 
+    <p class="main__situation">出勤中</p>
+
+@elseif ($status === 'off')
+    <p class="main__situation">勤務外</p>
+
+@endif
+
+
+<p class="main__date">{{ $date->year; }}年{{ $date->month; }}月{{ $date->day; }}日</p>
+<!-- <p class="main__date">{{ now()->locale('ja')->isoFormat('YYYY年MM月DD日（ddd）') }}</p> -->
 <p class="main__time" id="realtime-clock">{{ now()->format('H:i') }}</p>
 
 
