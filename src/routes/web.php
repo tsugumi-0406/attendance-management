@@ -33,6 +33,8 @@ use App\Http\Controllers\ApprovalController;
 
 Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
 
+Route::post('/stamp/attendance', [AttendanceRegisterController::class, 'stampAttendance']);
+
 Route::get('/attendance/list', [UserAttendanceListController::class, 'list']);
 
 Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail']);

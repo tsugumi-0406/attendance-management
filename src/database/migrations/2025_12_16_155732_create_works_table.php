@@ -19,6 +19,7 @@ class CreateWorksTable extends Migration
             $table->date('date');
             $table->time('attendance')->nullable();
             $table->time('leaving')->nullable();
+            // 申請理由の欄を入れる
             $table->string('update');
             $table->timestamps();
 
