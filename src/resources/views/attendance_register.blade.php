@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-@if($status === 'finished')
+<!-- @if($status === 'finished')
     <p class="main__situation">退勤済</p>
 
 @elseif ($status === 'breaking') 
@@ -17,16 +17,18 @@
 @elseif ($status === 'off')
     <p class="main__situation">勤務外</p>
 
-@endif
+@endif -->
 
 
-<p class="main__date">{{ $date->year; }}年{{ $date->month; }}月{{ $date->day; }}日</p>
-<!-- <p class="main__date">{{ now()->locale('ja')->isoFormat('YYYY年MM月DD日（ddd）') }}</p> -->
-<p class="main__time" id="realtime-clock">{{ now()->format('H:i') }}</p>
+<p class="main__date">{{ $now->year; }}年{{ $now->month; }}月{{ $now->day; }}日</p>
+<p class="main__time" id="realtime-clock">{{ $now->format('H:i') }}</p>
 
 
 
-<form action="" class="main-form">
+<form action="/stamp/attendance" method="post" class="main-form">
+    @csrf
+    <!-- <input type="hidden" name="date" value="$date">
+    <input type="hidden" name="attendance" value="$time"> -->
     <button class="main-form__button">出勤</button>
 </form>
 

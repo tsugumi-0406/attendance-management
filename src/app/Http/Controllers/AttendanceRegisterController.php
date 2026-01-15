@@ -7,37 +7,71 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Work;
+use App\Models\BreakTime;
 
 class AttendanceRegisterController extends Controller
 {
+    // 出勤画面の表示
     public function attendance(Request $request)
     {
         $now = CarbonImmutable::now();
         $date = $now->toDateString();
-        // $time = $now->time;
         $user = Auth::user();
         $working = Work::where('user_id', $user->id)
                 ->where('date', $date)
                 ->first();
-        // dd($working);
-        dd($user->id);
 
-        // 退勤済
-        if(退勤時間がDBにある){
-            $status = 'finished';
-        // 休憩中
-        } elseif (休憩開始時間がDBにある and 休憩終了時間がDBにない) {
-            $status = 'breaking';
-        // 出勤中
-        } elseif (出勤時間がDBにある and 退勤時間がDBにない) {
-            $status = 'working';
-        // 勤務外
-        } else {
-            $status = 'off';
-        }
+        $breaking = BreakTime::where('user_id', $user->id)
+                ->where('date', $date)
+                ->orderBy('start', 'desc')
+                ->first();
 
         
+        if($working != null){
+            $attending = $working->attendance;
+            $leaving = $working->leaving;
+            if($breaking != null){
+                $breaking_start = $breaking->start;
+                $breaking_stop = $breaking->stop;
+            } else {
+                $breaking_start = null;
+                $breaking_stop = null;
+            }
 
-        return view('attendance_register', compact('date', 'status'));
+            // 退勤済
+            if($leaving != null){
+                $status = 'finished';
+            // 休憩中
+            } elseif ($breaking_start != null && $breaking_stop == null) {
+                $status = 'breaking';
+            // 出勤中
+            } elseif ($attending != null and $leaving === null) {
+                $status = 'working';
+            // 勤務外
+            } else {
+                $status = 'off';
+            }
+        } else {
+                $status = 'off';
+        }
+
+        return view('attendance_register', compact('now', 'status'));
+    }
+
+    // 出勤を打刻する
+    public function stampAttendance(Request $request)
+    {
+        $user = Auth::user();
+        $now = CarbonImmutable::now();
+        $date = $now->toDateString();
+        $time = $now->toTimeString();
+
+        Work::create([
+            'user_id'    => $user->id,
+            'date' => $date,
+            'attendance' => $time,
+            'update' => 'no',
+        ]);
+        return redirect('/attendance');
     }
 }
