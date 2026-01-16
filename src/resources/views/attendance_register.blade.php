@@ -24,12 +24,28 @@
 <p class="main__time" id="realtime-clock">{{ $now->format('H:i') }}</p>
 
 
-
+<!-- 出勤ボタン -->
 <form action="/stamp/attendance" method="post" class="main-form">
     @csrf
-    <!-- <input type="hidden" name="date" value="$date">
-    <input type="hidden" name="attendance" value="$time"> -->
     <button class="main-form__button">出勤</button>
+</form>
+
+<!-- 休憩開始ボタン -->
+<form action="/stamp/break/start" method="post" class="main-form">
+    @csrf
+    <button class="main-form__button">休憩入</button>
+</form>
+
+<!-- 休憩終了ボタン -->
+<form action="/stamp/break/stop" method="post" class="main-form">
+    @csrf
+    <button class="main-form__button">休憩戻</button>
+</form>
+
+<!-- 退勤ボタン -->
+<form action="/stamp/leave" method="post" class="main-form">
+    @csrf
+    <button class="main-form__button">退勤</button>
 </form>
 
 <script>

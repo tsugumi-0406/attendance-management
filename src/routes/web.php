@@ -35,6 +35,12 @@ Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
 
 Route::post('/stamp/attendance', [AttendanceRegisterController::class, 'stampAttendance']);
 
+Route::post('/stamp/break/start', [AttendanceRegisterController::class, 'stampBreakStart']);
+
+Route::post('/stamp/break/stop', [AttendanceRegisterController::class, 'stampBreakStop']);
+
+Route::post('/stamp/leave', [AttendanceRegisterController::class, 'stampLeave']);
+
 Route::get('/attendance/list', [UserAttendanceListController::class, 'list']);
 
 Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail']);
