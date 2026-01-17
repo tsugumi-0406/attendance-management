@@ -128,7 +128,7 @@ class AttendanceRegisterController extends Controller
         }
 
         BreakTime::create([
-            'user_id'    => $user->id,
+            'user_id' => $user->id,
             'date' => $date,
             'start' => $time,
             'update' => 'no',
