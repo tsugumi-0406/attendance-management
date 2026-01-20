@@ -69,7 +69,7 @@ class AttendanceRegisterController extends Controller
         $time = $now->toTimeString();
 
         Work::create([
-            'user_id'    => $user->id,
+            'user_id' => $user->id,
             'date' => $date,
             'attendance' => $time,
             'update' => 'no',

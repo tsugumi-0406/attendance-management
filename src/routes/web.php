@@ -31,23 +31,25 @@ use App\Http\Controllers\ApprovalController;
 
 // Route::get('/login', [UserLoginController::class, 'login']);
 
-Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
+Route::middleware('auth')->group(function () {
+    Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
 
-Route::post('/stamp/attendance', [AttendanceRegisterController::class, 'stampAttendance']);
+    Route::post('/stamp/attendance', [AttendanceRegisterController::class, 'stampAttendance']);
 
-Route::post('/stamp/break/start', [AttendanceRegisterController::class, 'stampBreakStart']);
+    Route::post('/stamp/break/start', [AttendanceRegisterController::class, 'stampBreakStart']);
 
-Route::post('/stamp/break/stop', [AttendanceRegisterController::class, 'stampBreakStop']);
+    Route::post('/stamp/break/stop', [AttendanceRegisterController::class, 'stampBreakStop']);
 
-Route::post('/stamp/leave', [AttendanceRegisterController::class, 'stampLeave']);
+    Route::post('/stamp/leave', [AttendanceRegisterController::class, 'stampLeave']);
 
-Route::get('/attendance/list', [UserAttendanceListController::class, 'list']);
+    Route::get('/attendance/list', [UserAttendanceListController::class, 'list']);
 
-Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail']);
+    Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('attendance.detail');
 
-Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application']);
+    Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application']);
 
-Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
+    Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
+});
 
 Route::prefix('admin')->group(function () {
     Route::post('/login', [AdministratorLoginController::class, 'authenticate']);
