@@ -24,14 +24,27 @@
                 <th class="th">合計</th>
                 <th class="th">詳細</th>
             </tr>
-            <tr>
-                <td class="td">日付</td>
-                <td class="td">出勤</td>
-                <td class="td">退勤</td>
-                <td class="td">休憩</td>
-                <td class="td">合計</td>
-                <td class="td"><span class="td-detail">詳細</span></td>
-            </tr>
+            @foreach ($works as $work) 
+                <tr>
+                    @php
+                        $week_dd = Carbon\Carbon::parse($work->date)->dayOfWeek;
+                    @endphp
+                    <td class="td">{{ Carbon\Carbon::parse($work->date)->format('m/d'); }}
+                            ({{ $dd[$week_dd]; }})</td>
+                    <td class="td">{{ Carbon\Carbon::parse($work->attendance)->format('H:i'); }}</td>
+                    <td class="td">
+                        @if($work->leaving == null)
+                            {{ '--:--' }}
+                        @else
+                            {{ Carbon\Carbon::parse($work->leaving)->format('H:i'); }}
+                        @endif
+                    </td>
+                    <td class="td">休憩</td>
+                    <td class="td">合計</td>
+                    <td class="td"><a class="td-detail" href="{{ route('attendance.detail', ['id' => $user->id]) }}" class="item-link">詳細</td>
+                </tr>
+            @endforeach
+            
         </table>
     </div>
 @endsection
