@@ -2,6 +2,8 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/user_attendance_list.css') }}" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 @endsection
 
 @section('content')
@@ -11,9 +13,20 @@
             <h1 class="main-title__sentence"> 勤怠一覧</h1>
         </div>
         <div class="month">
-            <div class="month-before">前月</div>
-            <div class="month-now">該当月</div>
-            <div class="month-after">翌月</div>
+            <div class="month-before">
+                <a href="/attendance/list?month={{ $link_day_before }}" class="month-before__link">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                    先月
+                </a>
+            </div>
+            <div class="month-now">
+                <ion-icon name="calendar-outline"></ion-icon>{{ $base_date->format('Y/m'); }}
+            </div>
+            <div class="month-after">
+                <a a href="/attendance/list?month={{ $link_day_after }}" class="month-after__link">翌月
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+            </div>
         </div>
         <table class="table">
             <tr>
