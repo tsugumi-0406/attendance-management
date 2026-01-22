@@ -46,6 +46,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('attendance.detail');
 
+    Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply']);
+
     Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application']);
 
     Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
