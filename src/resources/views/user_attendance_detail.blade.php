@@ -11,6 +11,7 @@
             <h1 class="main-title__sentence"> 勤怠詳細</h1>
         </div>
         <form action="/attendance/correction/apply" class="form" method="post">
+            @csrf
             <div class="form-inner">
                 <div class="form-line">
                     <p class="form-item">名前</p>
@@ -26,6 +27,8 @@
                 </div>
                 <div class="form-line">
                     @php
+                        $work_id = $works->id;
+
                         $work_attendance = Carbon\Carbon::parse($works->attendance)->format('H:i');
 
                         if($works->leaving == null){
@@ -40,10 +43,11 @@
                             $works_remarks = $works->remarks;
                         }
                     @endphp
+                    <input type="text" hidden value="{{ $work_id }}" name="work_id">
                     <p class="form-item">出勤・退勤</p>
-                    <input type="text" class="form-data__attendance" value="{{ $work_attendance }}">
+                    <input type="text" class="form-data__attendance" value="{{ $work_attendance }}" name="attendance">
                     <p class="form-data__mark">～</p>
-                    <input type="text" class="form-data__leaving" value="{{ $work_leaving }}">
+                    <input type="text" class="form-data__leaving" value="{{ $work_leaving }}" name="leaving">
                 </div>
                 @foreach($breaks as $break)
                     <div class="form-line">
@@ -63,20 +67,19 @@
                             }
                         @endphp
                         <p class="form-item">休憩</p>
-                        <input type="text" class="form-data__break-start" value="{{ $break_start }}">
+                        <input type="text" class="form-data__break-start" value="{{ $break_start }}" name="start">
                         <p class="form-data__mark">～</p>
-                        <input type="text" class="form-data__break-end" value="{{ $break_stop }}">
+                        <input type="text" class="form-data__break-end" value="{{ $break_stop }}" name="stop">
                     </div>
                 @endforeach
                 <div class="form-line">
                     <p class="form-item">備考</p>
-                    <textarea class="form-data__remarks">
+                    <textarea class="form-data__remarks" name="remarks">
                         {{ $works_remarks }}{{ $break_remarks }}
                     </textarea>
                 </div>
             </div>
-            @if($works->id)
-            <input type="button" value="修正" class="form-button">
+            <input type="submit" value="修正" class="form-button">
         </form>
     </div>
 @endsection
