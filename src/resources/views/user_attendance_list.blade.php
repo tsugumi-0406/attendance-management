@@ -52,9 +52,32 @@
                             {{ Carbon\Carbon::parse($work->leaving)->format('H:i'); }}
                         @endif
                     </td>
-                    <td class="td">休憩</td>
-                    <td class="td">合計</td>
-                    <td class="td"><a class="td-detail" href="{{ route('attendance.detail', ['id' => $user->id]) }}" class="item-link">詳細</td>
+                    @php
+                        $workk_date = Carbon\Carbon::parse($work->date)->format('Y-m-d');
+                        if(empty( $break_date[ $workk_date ])){
+                            $break_seconds = 0;
+                        }
+                        else{
+                            $break_seconds = $break_date[$workk_date];
+                        }
+                    @endphp
+                    <td class="td">{{ floor($break_seconds/ 3600) . ':' . sprintf('%02d',floor(($break_seconds % 3600) / 60)); }}</td>
+                    <td class="td">
+                        @if(empty( $work['leaving']))
+                            {{ '--' . ':' . '--'}}
+                        @else
+                            @php
+                                $start_date_time = $work['date'] . ' ' . $work['attendance'];
+                                $stop_date_time = $work['date'] . ' ' . $work['leaving']; 
+                                $start_time = Carbon\Carbon::parse($start_date_time);
+                                $end_time = Carbon\Carbon::parse($stop_date_time); 
+                                $work_seconds = $start_time->diffInSeconds($end_time) - $break_seconds;
+                            @endphp
+                            {{ floor($work_seconds/ 3600) . ':' . sprintf('%02d',floor(($work_seconds % 3600) / 60)); }}
+                            
+                        @endif
+                    </td>
+                    <td class="td"><a class="td-detail" href="{{ route('attendance.detail', ['id' => $work->id]) }}" class="item-link">詳細</td>
                 </tr>
             @endforeach
             
