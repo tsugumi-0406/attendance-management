@@ -35,7 +35,7 @@ class UserAttendanceDetailController extends Controller
         return view('user_attendance_detail', compact('works', 'user', 'breaks', 'unapproved_works', 'unapproved_breaks'));
     }
 
-    public function apply(Request $request)
+    public function apply(UserAttendamceDetailRequest $request)
     {
         $work_id = $request->work_id;
 
