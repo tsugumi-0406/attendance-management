@@ -20,8 +20,10 @@ class CreateUnapprovedBreaksTable extends Migration
             $table->date('date');
             $table->time('start')->nullable();
             $table->time('stop')->nullable();
-            $table->text('remarks')->nullable();
             $table->timestamps();
+
+            // 「1日1回」制約
+            $table->unique(['break_id']);
         });
     }
 

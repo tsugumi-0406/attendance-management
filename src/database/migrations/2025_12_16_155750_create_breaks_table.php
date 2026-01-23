@@ -19,7 +19,6 @@ class CreateBreaksTable extends Migration
             $table->date('date');
             $table->time('start');
             $table->time('stop')->nullable();
-            $table->text('remarks')->nullable();
             $table->string('update');
             $table->timestamps();
         });

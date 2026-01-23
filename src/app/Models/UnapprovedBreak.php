@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class UnapprovedBreak extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['break_id', 'user_id', 'date', 'start', 'stop'];
 }
