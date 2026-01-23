@@ -60,7 +60,15 @@
     height: 30px;
     width: 100px;
     margin: auto 0 auto 145px;
-    border: solid 1px #E1E1E1;
+    border: solid 1px #FFFFFF;
+    text-align: center;
+}
+
+.form-data__attendance-pending {
+    font-size: 16px;
+    height: 30px;
+    width: 100px;
+    margin: auto 0 auto 125px;
     text-align: center;
 }
 
@@ -78,6 +86,14 @@
     text-align: center;
 }
 
+.form-data__leaving-pending {
+    font-size: 16px;
+    height: 30px;
+    width: 100px;
+    margin: auto 0 auto 45px;
+    text-align: center;
+}
+
 .form-data__break-start {
     font-size: 16px;
     height: 30px;
@@ -87,12 +103,29 @@
     text-align: center;
 }
 
+.form-data__break-start-pending {
+    font-size: 16px;
+    height: 30px;
+    width: 100px;
+    margin: auto 0 auto 170px;
+    text-align: center;
+}
+
+
 .form-data__break-end {
     font-size: 16px;
     height: 30px;
     width: 100px;
     margin: auto 0 auto 45px;
     border: solid 1px #E1E1E1;
+    text-align: center;
+}
+
+.form-data__break-end-pending {
+    font-size: 16px;
+    height: 30px;
+    width: 100px;
+    margin: auto 0 auto 45px;
     text-align: center;
 }
 
@@ -104,6 +137,13 @@
     border: solid 1px #E1E1E1;
 }
 
+.form-data__remarks-pending {
+    font-size: 16px;
+    height: 60px;
+    width: 310px;
+    margin: auto 0 auto 190px;
+}
+
 .form-button{
     background-color: #000000;
     color: #FFFFFF;
@@ -112,4 +152,9 @@
     width: 130px;
     font-size: 22px;
     margin: 50px 0px 0px 770px;
+}
+
+.pending-comment{
+    color: red;
+    text-align: right;
 }

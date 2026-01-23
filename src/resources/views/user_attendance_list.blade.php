@@ -23,7 +23,7 @@
                 <ion-icon name="calendar-outline"></ion-icon>{{ $base_date->format('Y/m'); }}
             </div>
             <div class="month-after">
-                <a a href="/attendance/list?month={{ $link_day_after }}" class="month-after__link">翌月
+                <a href="/attendance/list?month={{ $link_day_after }}" class="month-after__link">翌月
                     <ion-icon name="arrow-forward-outline"></ion-icon>
                 </a>
             </div>
@@ -77,7 +77,7 @@
                             
                         @endif
                     </td>
-                    <td class="td"><a class="td-detail" href="{{ route('attendance.detail', ['id' => $work->id]) }}" class="item-link">詳細</td>
+                    <td class="td"><a class="td-detail" href="{{ route('attendance.detail', ['id' => $work->id]) }}" class="item-link">詳細</a></td>
                 </tr>
             @endforeach
             

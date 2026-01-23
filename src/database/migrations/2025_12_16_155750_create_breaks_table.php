@@ -17,10 +17,8 @@ class CreateBreaksTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->date('date');
-            // スタートのnullable();消す
-            $table->time('start')->nullable();
+            $table->time('start');
             $table->time('stop')->nullable();
-            // 申請理由の欄を入れる
             $table->string('update');
             $table->timestamps();
         });

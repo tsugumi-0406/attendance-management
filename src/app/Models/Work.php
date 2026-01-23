@@ -9,5 +9,5 @@ class Work extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'date', 'attendance', 'leaving', 'update'];
+    protected $fillable = ['user_id', 'date', 'attendance', 'leaving', 'remarks', 'update'];
 }
