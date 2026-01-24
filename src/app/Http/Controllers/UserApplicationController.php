@@ -3,11 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Work;
+use App\Models\UnapprovedWork;
+use Illuminate\Support\Facades\Auth;
 
 class UserApplicationController extends Controller
 {
     public function application(Request $request)
     {
-        return view('user_application');
+        $tab = $request->query('tab', 'waiting');
+
+        $user = Auth::user();
+
+        switch ($tab) {
+            case 'done':
+                $works = Work::where('user_id', $user->id)
+                        ->where('update', 'yes')
+                        ->get();
+
+                $unapproved_works = collect();
+
+            break;
+
+            case 'waiting':
+            default:  
+                $unapproved_works = UnapprovedWork::where('user_id', $user->id)
+                ->get();
+
+                $works = collect();
+    
+            break;
+        }
+
+        return view('user_application', compact('tab', 'user', 'unapproved_works', 'works'));
     }
 }
