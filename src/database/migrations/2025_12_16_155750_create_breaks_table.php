@@ -20,6 +20,7 @@ class CreateBreaksTable extends Migration
             $table->time('start');
             $table->time('stop')->nullable();
             $table->string('update');
+            $table->date('application_date')->nullable();
             $table->timestamps();
         });
     }
