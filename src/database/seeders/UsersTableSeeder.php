@@ -4,10 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
-class AdminsTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,10 +17,12 @@ class AdminsTableSeeder extends Seeder
     public function run()
     {
         $param = [
-            'name' => '管理者１',
-            'email' => 'aaa@gmail.com',
+            'name' => 'テスト',
+            'email' => 'abc@gmail.com',
             'password' => Hash::make('password'),
         ];
         DB::table('admins')->insert($param);
+
+        User::factory()->count(10)->create();
     }
 }
