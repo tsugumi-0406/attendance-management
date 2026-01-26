@@ -10,4 +10,9 @@ class Work extends Model
     use HasFactory;
 
     protected $fillable = ['user_id', 'date', 'attendance', 'leaving', 'remarks', 'update'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
