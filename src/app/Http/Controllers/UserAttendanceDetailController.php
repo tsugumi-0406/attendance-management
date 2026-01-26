@@ -10,6 +10,7 @@ use App\Models\UnapprovedWork;
 use App\Models\UnapprovedBreak;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserAttendanceDetailRequest;
 
 class UserAttendanceDetailController extends Controller
 {
@@ -35,14 +36,15 @@ class UserAttendanceDetailController extends Controller
         return view('user_attendance_detail', compact('works', 'user', 'breaks', 'unapproved_works', 'unapproved_breaks'));
     }
 
-    public function apply(UserAttendamceDetailRequest $request)
+    public function apply(UserAttendanceDetailRequest $request)
     {
         $work_id = $request->work_id;
 
-        $user = Auth::user();
-
         $work = Work::where('id', $work_id)
                 ->first();
+
+        $user_id = $work->user_id;
+
         $date = $work->date;
 
         $attendance = $request->attendance;
@@ -53,7 +55,7 @@ class UserAttendanceDetailController extends Controller
 
         UnapprovedWork::create([
             'work_id' => $work_id,
-            'user_id' => $user->id,
+            'user_id' => $user_id,
             'date' => $date,
             'attendance' => $attendance,
             'leaving' => $leaving,
@@ -82,7 +84,7 @@ class UserAttendanceDetailController extends Controller
 
                 UnapprovedBreak::create([
                     'break_id' => $break_id,
-                    'user_id' => $user->id,
+                    'user_id' => $user_id,
                     'date' => $date,
                     'start' => $start,
                     'stop' => $stop,
@@ -94,6 +96,11 @@ class UserAttendanceDetailController extends Controller
             }
         }
 
+        $from = $request->input('from');
+
+        if ($from === 'admin') {
+            return redirect('/admin/attendance/detail/' . $work_id);
+        }
 
         return redirect('/attendance/detail/' . $work_id);
     }

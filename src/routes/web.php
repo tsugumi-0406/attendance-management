@@ -31,6 +31,8 @@ use App\Http\Controllers\ApprovalController;
 
 // Route::get('/login', [UserLoginController::class, 'login']);
 
+Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
 
@@ -46,8 +48,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('attendance.detail');
 
-    Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply']);
-
     Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application']);
 
     Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
@@ -60,6 +60,9 @@ Route::prefix('admin')->group(function () {
 
 
     Route::get('/attendance/list', [AdministratorAttendanceListController::class, 'attendancelist']);
+
+    Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('admin.attendance.detail');
+
     
     Route::get('admin/attendance/{id}', [AdministratorAttendanceDetailController::class, 'detail']);
 });

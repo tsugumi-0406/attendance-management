@@ -78,7 +78,7 @@
                             
                         @endif
                     </td>
-                    <td class="td"><a class="td-detail" href="{{ route('attendance.detail', ['id' => $work->id]) }}" class="item-link"><span class="td-detail">詳細</span></a></td>
+                    <td class="td"><a class="td-detail" href="{{ route('admin.attendance.detail', ['id' => $work->id]) }}" class="item-link"><span class="td-detail">詳細</span></a></td>
                 </tr>
             @endforeach
         </table>

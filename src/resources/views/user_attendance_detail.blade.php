@@ -16,6 +16,9 @@
         <form action="/attendance/correction/apply" class="form" method="post">
             @csrf
             <div class="form-inner">
+            @if (request()->is('admin/*'))
+                <input type="hidden" name="from" value="admin">
+            @endif
 
 
                 <div class="form-line">
@@ -145,8 +148,6 @@
                         </textarea>
                     @endif
                 </div>
-
-
             </div>
 
 
