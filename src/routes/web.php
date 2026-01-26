@@ -55,12 +55,18 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('admin')->group(function () {
     Route::post('/login', [AdministratorLoginController::class, 'authenticate']);
+
     Route::post('/logout', [AdministratorLoginController::class, 'logout']);
+
+
+    Route::get('/attendance/list', [AdministratorAttendanceListController::class, 'attendancelist']);
+    
+    Route::get('admin/attendance/{id}', [AdministratorAttendanceDetailController::class, 'detail']);
 });
 
-Route::get('/admin/attendance/list', [AdministratorAttendanceListController::class, 'attendancelist']);
 
-Route::get('admin/attendance/{id}', [AdministratorAttendanceDetailController::class, 'detail']);
+
+
 
 Route::get('/admin/staff/list', [StaffListController::class, 'list']);
 
