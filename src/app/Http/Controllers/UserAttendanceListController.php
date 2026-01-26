@@ -10,6 +10,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Auth;
 
 
+
 class UserAttendanceListController extends Controller
 {
     public function list(Request $request)

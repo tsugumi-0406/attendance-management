@@ -53,15 +53,17 @@
                         @endif
                     </td>
                     @php
-                        $workk_date = Carbon\Carbon::parse($work->date)->format('Y-m-d');
-                        if(empty( $break_date[ $workk_date ])){
+                        $work_date = Carbon\Carbon::parse($work->date)->format('Y-m-d');
+                        if(empty( $break_date[ $work_date ])){
                             $break_seconds = 0;
                         }
                         else{
-                            $break_seconds = $break_date[$workk_date];
+                            $break_seconds = $break_date[$work_date];
                         }
                     @endphp
-                    <td class="td">{{ floor($break_seconds/ 3600) . ':' . sprintf('%02d',floor(($break_seconds % 3600) / 60)); }}</td>
+                    <td class="td">
+                        {{ floor($break_seconds/ 3600) . ':' . sprintf('%02d',floor(($break_seconds % 3600) / 60)); }}
+                    </td>
                     <td class="td">
                         @if(empty( $work['leaving']))
                             {{ '--' . ':' . '--'}}

@@ -21,8 +21,8 @@ class UsersTableSeeder extends Seeder
             'email' => 'abc@gmail.com',
             'password' => Hash::make('password'),
         ];
-        DB::table('admins')->insert($param);
+        DB::table('users')->insert($param);
 
-        User::factory()->count(10)->create();
+        User::factory()->count(5)->create();
     }
 }
