@@ -17,11 +17,16 @@
                 <th class="th">メールアドレス</th>
                 <th class="th">月次勤怠</th>
             </tr>
-            <tr>
-                <td class="td">山田太郎</td>
-                <td class="td">aaa@gmail.com</td>
-                <td class="td"><span class="td-detail">詳細</span></td>
-            </tr>
+            @foreach($staffs as $staff)
+                @php
+                    $staff_id = $staff->id;
+                @endphp
+                <tr>
+                    <td class="td">{{ $staff->name }}</td>
+                    <td class="td">{{ $staff->email }}</td>
+                    <td class="td"><a href="/admin/attendance/staff?id=$staff_id"></a><span class="td-detail">詳細</span></td>
+                </tr>
+            @endforeach
         </table>
     </div>
 @endsection
