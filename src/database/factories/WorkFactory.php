@@ -21,7 +21,7 @@ class WorkFactory extends Factory
             'leaving' => $this->faker->time('H:i:s'),
             'remarks' => $this->faker->realText(10),
             'update' => $this->faker->randomElement(['yes', 'no', 'pending']),
-            'application_date' => $this->faker->dateTimeBetween('2026-01-09','2026-01-16')->format('Y-m-d'),
+            'application_date' => $this->faker->dateTimeBetween('2026-02-04','2026-02-06')->format('Y-m-d'),
         ];
     }
 }

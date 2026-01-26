@@ -15,16 +15,76 @@ class WorksTableSeeder extends Seeder
     public function run()
     {
         $works = [
-            ['user_id' => 1, 'date' => '2026-01-05', 'update' => 'pending'],
-            ['user_id' => 2, 'date' => '2026-01-04', 'update' => 'yes'],
-            ['user_id' => 3, 'date' => '2026-01-03', 'update' => 'pending'],
-            ['user_id' => 4, 'date' => '2026-01-02', 'update' => 'no'],
-            ['user_id' => 5, 'date' => '2026-01-01', 'update' => 'pending'],
-            ['user_id' => 6, 'date' => '2026-01-05', 'update' => 'yes'],
-            ['user_id' => 7, 'date' => '2026-01-04', 'update' => 'pending'],
-            ['user_id' => 8, 'date' => '2026-01-03', 'update' => 'no'],
-            ['user_id' => 9, 'date' => '2026-01-02', 'update' => 'pending'],
-            ['user_id' => 10, 'date' => '2026-01-01', 'update' => 'yes'],
+            [
+                'user_id' => 4,
+                'date' => '2026-02-01',
+                'attendance' => '8:00:00',
+                'leaving' => '17:00:00',
+                'update' => 'pending',
+            ],
+            [
+                'user_id' => 1,
+                'date' => '2026-02-01',
+                'attendance' => '9:00:00',
+                'leaving' => '18:00:00',
+                'update' => 'yes',
+            ],
+            [
+                'user_id' => 3,
+                'date' => '2026-02-01',
+                'attendance' => '9:00:00',
+                'leaving' => null,
+                'update' => 'no',
+            ],
+            [
+                'user_id' => 2,
+                'date' => '2026-02-02',
+                'attendance' => '8:00:00',
+                'leaving' => '17:00:00',
+                'update' => 'pending',
+            ],
+            [
+                'user_id' => 3,
+                'date' => '2026-02-02',
+                'attendance' => '8:00:00',
+                'leaving' => null,
+                'update' => 'yes',
+            ],
+            [
+                'user_id' => 5,
+                'date' => '2026-02-02',
+                'attendance' => '9:00:00',
+                'leaving' => '18:00:00',
+                'update' => 'no',
+            ],
+            [
+                'user_id' => 1,
+                'date' => '2026-02-03',
+                'attendance' => '8:00:00',
+                'leaving' => '17:00:00',
+                'update' => 'pending',
+            ],
+            [
+                'user_id' => 5,
+                'date' => '2026-02-03',
+                'attendance' => '8:00:00',
+                'leaving' => '17:00:00',
+                'update' => 'yes',
+            ],
+            [
+                'user_id' => 2,
+                'date' => '2026-02-03',
+                'attendance' => '9:00:00',
+                'leaving' => '18:00:00',
+                'update' => 'no',
+            ],
+            [
+                'user_id' => 4,
+                'date' => '2026-02-03',
+                'attendance' => '9:00:00',
+                'leaving' => '18:00:00',
+                'update' => 'yes',
+            ],
         ];
 
         foreach($works as $work)
