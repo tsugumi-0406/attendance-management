@@ -47,20 +47,20 @@
 
                     @if($work_status == 'pending')
                         @php
-                        $unapproved_work_attendance = Carbon\Carbon::parse($unapproved_works->attendance)->format('H:i');
+                            $unapproved_work_attendance = Carbon\Carbon::parse($unapproved_works->attendance)->format('H:i');
 
-                        if($unapproved_works->leaving == null){
-                            $unapproved_work_leaving = '--:--';
-                        }else{
-                            $unapproved_work_leaving = Carbon\Carbon::parse($unapproved_works->leaving)->format('H:i');
-                        }
+                            if($unapproved_works->leaving == null){
+                                $unapproved_work_leaving = '--:--';
+                            }else{
+                                $unapproved_work_leaving = Carbon\Carbon::parse($unapproved_works->leaving)->format('H:i');
+                            }
 
-                        if($unapproved_works->remarks == null){
-                            $unapproved_works_remarks = '';
-                        }else{
-                            $unapproved_works_remarks = $unapproved_works->remarks;
-                        }
-                    @endphp
+                            if($unapproved_works->remarks == null){
+                                $unapproved_works_remarks = '';
+                            }else{
+                                $unapproved_works_remarks = $unapproved_works->remarks;
+                            }
+                        @endphp
                         <p class="form-item">出勤・退勤</p>
                         <p class="form-data__attendance-pending">{{ $unapproved_work_attendance }}</p>
                         <p class="form-data__mark">～</p>

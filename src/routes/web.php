@@ -69,7 +69,7 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/stamp_correction_request/list', [AdministratorApplicationController::class, 'application']);
 
-    Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [ApprovalController::class, 'approval']);
+    Route::get('/stamp_correction_request/approve/{work_id}', [ApprovalController::class, 'approval']);
 
     Route::get('/staff/list', [StaffListController::class, 'list']);
 
