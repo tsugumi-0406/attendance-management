@@ -45,4 +45,8 @@ class User extends Authenticatable
     public function works() {
         return $this->hasMany(Work::class);
     }
+
+    public function unapproved_works() {
+        return $this->hasMany(Unapproved_Work::class);
+    }
 }

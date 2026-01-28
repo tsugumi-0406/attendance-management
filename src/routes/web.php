@@ -66,17 +66,25 @@ Route::prefix('admin')->group(function () {
     Route::get('admin/attendance/{id}', [AdministratorAttendanceDetailController::class, 'detail']);
 
     Route::post('/export/staff/{id}', [StaffAttendanceListController::class, 'export']);
+
+    Route::get('/stamp_correction_request/list', [AdministratorApplicationController::class, 'application']);
+
+    Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [ApprovalController::class, 'approval']);
+
+    Route::get('/staff/list', [StaffListController::class, 'list']);
+
+    Route::get('/attendance/staff/{id}', [StaffAttendanceListController::class, 'list']);
 });
 
 
 
 
 
-Route::get('/admin/staff/list', [StaffListController::class, 'list']);
 
-Route::get('/admin/attendance/staff/{id}', [StaffAttendanceListController::class, 'list']);
 
-// Route::get('/stamp_correction_request/list', [AdministratorApplicationController::class, 'application']);
 
-Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [ApprovalController::class, 'approval']);
+
+
+
+
 
