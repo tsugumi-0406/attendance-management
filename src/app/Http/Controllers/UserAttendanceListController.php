@@ -10,12 +10,12 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Auth;
 
 
-
 class UserAttendanceListController extends Controller
 {
     public function list(Request $request)
     {
         $user = Auth::user();
+        
         $now = CarbonImmutable::now();
         if($request->query('month') === null)
             $year_month = $now->format('Y-m');
