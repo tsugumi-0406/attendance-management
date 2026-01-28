@@ -63,8 +63,9 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('admin.attendance.detail');
 
-    
     Route::get('admin/attendance/{id}', [AdministratorAttendanceDetailController::class, 'detail']);
+
+    Route::post('/export/staff/{id}', [StaffAttendanceListController::class, 'export']);
 });
 
 

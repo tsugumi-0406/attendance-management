@@ -6,6 +6,7 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 @endsection
 
+
 @section('content')
     <div class="main__inner">
         <div class="main-title">
@@ -42,9 +43,13 @@
                     @php
                         $week_dd = Carbon\Carbon::parse($work->date)->dayOfWeek;
                     @endphp
-                    <td class="td">{{ Carbon\Carbon::parse($work->date)->format('m/d'); }}
-                            ({{ $dd[$week_dd]; }})</td>
-                    <td class="td">{{ Carbon\Carbon::parse($work->attendance)->format('H:i'); }}</td>
+                    <td class="td">
+                        {{ Carbon\Carbon::parse($work->date)->format('m/d'); }}
+                            ({{ $dd[$week_dd]; }})
+                    </td>
+                    <td class="td">
+                        {{ Carbon\Carbon::parse($work->attendance)->format('H:i'); }}
+                    </td>
                     <td class="td">
                         @if($work->leaving == null)
                             {{ '--:--' }}
@@ -79,7 +84,11 @@
                             
                         @endif
                     </td>
-                    <td class="td"><a class="td-detail" href="{{ route('attendance.detail', ['id' => $work->id]) }}" class="item-link">詳細</a></td>
+                    <td class="td">
+                        <a class="td-detail" href="{{ route('attendance.detail', ['id' => $work->id]) }}" class="item-link">
+                            詳細
+                        </a>
+                    </td>
                 </tr>
             @endforeach
             
