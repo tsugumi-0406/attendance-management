@@ -14,6 +14,7 @@ use App\Http\Controllers\StaffListController;
 use App\Http\Controllers\StaffAttendanceListController;
 use App\Http\Controllers\AdministratorApplicationController;
 use App\Http\Controllers\ApprovalController;
+use Illuminate\Foundation\Auth;
 
 
 /*
@@ -30,8 +31,6 @@ use App\Http\Controllers\ApprovalController;
 // Route::get('/register', [RegisterController::class, 'register']);
 
 // Route::get('/login', [UserLoginController::class, 'login']);
-
-Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
