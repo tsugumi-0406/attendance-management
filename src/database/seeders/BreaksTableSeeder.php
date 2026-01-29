@@ -22,7 +22,7 @@ class BreaksTableSeeder extends Seeder
                 'date' => '2026-02-01',
                 'start' => '12:00:00',
                 'stop' => '13:00:00',
-                'update' => 'yes',
+                'update' => 'done',
             ],
             [
                 'id' => 2,
@@ -70,7 +70,7 @@ class BreaksTableSeeder extends Seeder
                 'date' => '2026-02-02',
                 'start' => '12:00:00',
                 'stop' => '13:00:00',
-                'update' => 'yes',
+                'update' => 'done',
             ],
             [
                 'id' => 8,
@@ -102,7 +102,7 @@ class BreaksTableSeeder extends Seeder
                 'date' => '2026-02-03',
                 'start' => '12:00:00',
                 'stop' => '12:40:00',
-                'update' => 'yes',
+                'update' => 'done',
             ],
             [
                 'id' => 12,
@@ -110,7 +110,7 @@ class BreaksTableSeeder extends Seeder
                 'date' => '2026-02-03',
                 'start' => '12:00:00',
                 'stop' => '13:10:00',
-                'update' => 'yes',
+                'update' => 'done',
             ],
             [
                 'id' => 13,
@@ -126,7 +126,7 @@ class BreaksTableSeeder extends Seeder
                 'date' => '2026-02-03',
                 'start' => '15:00:00',
                 'stop' => '15:20:00',
-                'update' => 'yes',
+                'update' => 'done',
             ],
         ];
 

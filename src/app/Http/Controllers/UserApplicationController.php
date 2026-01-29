@@ -18,7 +18,7 @@ class UserApplicationController extends Controller
         switch ($tab) {
             case 'done':
                 $works = Work::where('user_id', $user->id)
-                        ->where('update', 'yes')
+                        ->where('update', 'done')
                         ->get();
 
                 $unapproved_works = collect();

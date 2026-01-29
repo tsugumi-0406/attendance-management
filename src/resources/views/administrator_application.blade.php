@@ -27,13 +27,16 @@
                     <th class="th">詳細</th>
                 </tr>
                 @foreach ($unapproved_works as $unapproved_work)
+                    @php
+                        $unapproved_work_id = $unapproved_work->work_id;
+                    @endphp
                     <tr>
                         <td class="td">承認待ち</td>
                         <td class="td">{{ $unapproved_work->user->name }}</td>
                         <td class="td">{{ Carbon\Carbon::parse($unapproved_work->date)->format('Y/m/d'); }}</td>
                         <td class="td">{{ $unapproved_work->remarks }}</td>
                         <td class="td">{{ Carbon\Carbon::parse($unapproved_work->application_date)->format('Y/m/d'); }}</td>
-                        <td class="td"><a href="/admin/stamp_correction_request/approve?attendance_correct_request_id={{ $unapproved_work->work_id }}" class="td-detail">詳細</a></td>
+                        <td class="td"><a href="/admin/stamp_correction_request/approve/{{$unapproved_work_id}}" class="td-detail">詳細</a></td>
                     </tr>
                 @endforeach
             </table>
@@ -49,13 +52,16 @@
                     <th class="th">詳細</th>
                 </tr>
                 @foreach ($works as $work)
+                    @php
+                        $work_id = $work->id;
+                    @endphp
                     <tr>
                         <td class="td">承認待ち</td>
                         <td class="td">{{ $work->user->name }}</td>
                         <td class="td">{{ Carbon\Carbon::parse($work->date)->format('Y/m/d'); }}</td>
                         <td class="td">{{ $work->remarks }}</td>
                         <td class="td">{{ Carbon\Carbon::parse($work->application_date)->format('Y/m/d'); }}</td>
-                        <td class="td"><a href="/admin/stamp_correction_request/approve?attendance_correct_request_id={{ $work->id }}" class="td-detail">詳細</a></td>
+                        <td class="td"><a href="/admin/stamp_correction_request/approve/{{$work_id}}" class="td-detail">詳細</a></td>
                     </tr>
                 @endforeach
             </table>
