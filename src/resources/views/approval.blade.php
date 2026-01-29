@@ -58,9 +58,9 @@
                         @endphp
                         <input type="hidden" value="{{ $work_id }}" name="work_id">
                         <p class="form-item">出勤・退勤</p>
-                        <input type="text" class="form-data__attendance" value="{{ $unapproved_work_attendance }}" name="attendance" readonly>
+                        <p class="form-data__attendance">{{ $unapproved_work_attendance }}</p>
                         <p class="form-data__mark">～</p>
-                        <input type="text" class="form-data__leaving" value="{{ $unapproved_work_leaving }}" name="leaving" readonly>
+                        <p class="form-data__leaving">{{ $unapproved_work_leaving }}</p>
                     @else
                         @php
                             $work_attendance = Carbon\Carbon::parse($work->attendance)->format('H:i');
@@ -78,9 +78,9 @@
                             }
                         @endphp
                         <p class="form-item">出勤・退勤</p>
-                        <p class="form-data__attendance-pending">{{ $work_attendance }}</p>
+                        <p class="form-data__attendance">{{ $work_attendance }}</p>
                         <p class="form-data__mark">～</p>
-                        <p class="form-data__leaving-pending">{{ $work_leaving }}</p>
+                        <p class="form-data__leaving">{{ $work_leaving }}</p>
                     @endif
                 </div>
 
@@ -101,9 +101,9 @@
                             @endphp
                             <input type="hidden" value="{{ $unapproved_break_id }}" name="unapproved_break_requests[{{ $index }}][unapproved_break_id]" readonly>
                             <p class="form-item">休憩</p>
-                            <input type="text" class="form-data__break-start" value="{{ $unapproved_break_start }}" name="unapproved_break_requests[{{ $index }}][start]" readonly>
+                            <p class="form-data__break-start">{{ $unapproved_break_start }}</p>
                             <p class="form-data__mark">～</p>
-                            <input type="text" class="form-data__break-end" value="{{ $unapproved_break_stop }}" name="unapproved_break_requests[{{ $index }}][stop]" readonly>
+                            <p class="form-data__break-end">{{ $unapproved_break_stop }}</p>
                         </div>
                     @endforeach 
                 @else
@@ -131,11 +131,11 @@
                 <div class="form-line">
                     <p class="form-item">備考</p>
                     @if($work_status == 'pending')
-                        <textarea class="form-data__remarks" name="remarks" readonly>
+                        <p class="form-data__remarks">
                             {{ $unapproved_work_remarks }}
                         </textarea>
                      @else
-                        <p class="form-data__remarks-pending" name="remarks">
+                        <p class="form-data__remarks">
                             {{ $work_remarks }}
                         </p>
                     @endif
