@@ -15,7 +15,7 @@ class AdministratorApplicationController extends Controller
 
         switch ($tab) {
             case 'done':
-                $works = Work::where('update', 'yes')
+                $works = Work::where('update', 'done')
                         ->get();
 
                 $unapproved_works = collect();

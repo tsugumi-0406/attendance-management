@@ -27,7 +27,7 @@ class WorksTableSeeder extends Seeder
                 'date' => '2026-02-01',
                 'attendance' => '9:00:00',
                 'leaving' => '18:00:00',
-                'update' => 'yes',
+                'update' => 'done',
             ],
             [
                 'user_id' => 3,
@@ -48,7 +48,7 @@ class WorksTableSeeder extends Seeder
                 'date' => '2026-02-02',
                 'attendance' => '8:00:00',
                 'leaving' => null,
-                'update' => 'yes',
+                'update' => 'done',
             ],
             [
                 'user_id' => 5,
@@ -69,7 +69,7 @@ class WorksTableSeeder extends Seeder
                 'date' => '2026-02-03',
                 'attendance' => '8:00:00',
                 'leaving' => '17:00:00',
-                'update' => 'yes',
+                'update' => 'done',
             ],
             [
                 'user_id' => 2,
@@ -83,7 +83,7 @@ class WorksTableSeeder extends Seeder
                 'date' => '2026-02-03',
                 'attendance' => '9:00:00',
                 'leaving' => '18:00:00',
-                'update' => 'yes',
+                'update' => 'done',
             ],
         ];
 

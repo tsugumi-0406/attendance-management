@@ -21,7 +21,7 @@ class BreakTimeFactory extends Factory
             'date' => $this->faker->dateTimeBetween('2026-01-01','2026-01-05')->format('Y-m-d'),
             'start' => $this->faker->time('H:i:s'),
             'stop' => $this->faker->time('H:i:s'),
-            'update' => $this->faker->randomElement(['yes', 'no', 'pending']),
+            'update' => $this->faker->randomElement(['done', 'no', 'pending']),
             'application_date' => $this->faker->dateTimeBetween('2026-01-09','2026-01-16')->format('Y-m-d'),
         ];
     }

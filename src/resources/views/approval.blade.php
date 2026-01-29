@@ -13,7 +13,7 @@
         </div>
 
 
-        <form action="" class="form" method="post">
+        <form action="/admin/approve" class="form" method="post">
             @csrf
             <div class="form-inner">
                 <div class="form-line">
@@ -56,11 +56,11 @@
                                 $unapproved_work_remarks = $unapproved_work->remarks;
                             }
                         @endphp
-                        <input type="text" hidden value="{{ $work_id }}" name="work_id">
+                        <input type="hidden" value="{{ $work_id }}" name="work_id">
                         <p class="form-item">出勤・退勤</p>
-                        <input type="text" class="form-data__attendance" value="{{ $unapproved_work_attendance }}"></input>
+                        <input type="text" class="form-data__attendance" value="{{ $unapproved_work_attendance }}" name="attendance" readonly>
                         <p class="form-data__mark">～</p>
-                        <input type="text" class="form-data__leaving" value="{{ $unapproved_work_leaving }}"></input>
+                        <input type="text" class="form-data__leaving" value="{{ $unapproved_work_leaving }}" name="leaving" readonly>
                     @else
                         @php
                             $work_attendance = Carbon\Carbon::parse($work->attendance)->format('H:i');
@@ -99,11 +99,11 @@
                                     $unapproved_break_stop = Carbon\Carbon::parse($unapproved_break->stop)->format('H:i');
                                 }    
                             @endphp
-                            <input type="text" hidden value="{{ $unapproved_break_id }}" name="break_requests[{{ $index }}][break_id]">
+                            <input type="hidden" value="{{ $unapproved_break_id }}" name="unapproved_break_requests[{{ $index }}][unapproved_break_id]" readonly>
                             <p class="form-item">休憩</p>
-                            <input type="text" class="form-data__break-start" value="{{ $unapproved_break_start }}" name="break_requests[{{ $index }}][start]">
+                            <input type="text" class="form-data__break-start" value="{{ $unapproved_break_start }}" name="unapproved_break_requests[{{ $index }}][start]" readonly>
                             <p class="form-data__mark">～</p>
-                            <input type="text" class="form-data__break-end" value="{{ $unapproved_break_stop }}" name="break_requests[{{ $index }}][stop]">
+                            <input type="text" class="form-data__break-end" value="{{ $unapproved_break_stop }}" name="unapproved_break_requests[{{ $index }}][stop]" readonly>
                         </div>
                     @endforeach 
                 @else
@@ -119,9 +119,9 @@
                                 }    
                             @endphp
                             <p class="form-item">休憩</p>
-                            <input type="text" class="form-data__break-start" value="{{ $break_start }}">
+                            <p class="form-data__break-start">{{ $break_start }}</p>
                             <p class="form-data__mark">～</p>
-                            <input type="text" class="form-data__break-end" value="{{ $break_stop }}">
+                            <p class="form-data__break-end">{{ $break_stop }}</p>
                         </div>
                     @endforeach
                 @endif
@@ -131,7 +131,7 @@
                 <div class="form-line">
                     <p class="form-item">備考</p>
                     @if($work_status == 'pending')
-                        <textarea class="form-data__remarks" name="remarks">
+                        <textarea class="form-data__remarks" name="remarks" readonly>
                             {{ $unapproved_work_remarks }}
                         </textarea>
                      @else
@@ -143,9 +143,9 @@
             </div>
 
             @if($work_status == 'pending')
-                <p class="pending-comment">承認済み</p>
-            @else
                 <input type="submit" value="承認" class="form-button">
+            @else
+                <p class="pending-comment">承認済み</p>
             @endif
         </form>
     </div>
