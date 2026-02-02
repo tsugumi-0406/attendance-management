@@ -52,7 +52,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
 });
 
+
+
+
 Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
+
+
+
+
 
 Route::prefix('admin')->group(function () {
     Route::post('/login', [AdministratorLoginController::class, 'authenticate']);
