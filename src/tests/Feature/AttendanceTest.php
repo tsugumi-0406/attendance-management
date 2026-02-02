@@ -68,7 +68,7 @@ class AttendanceTest extends TestCase
         $response = $this->get('/attendance');
         $response->assertStatus(200);
 
-        $response->assertDontSee('<form action="/stamp/attendance"');
+        $response->assertDontSee('<form action="/stamp/attendance"', false);
     }
 
     // 出勤時刻が勤怠一覧画面で確認できる
