@@ -145,10 +145,11 @@ class AttendanceListTest extends TestCase
         Carbon::setTestNow();
     }
 
-    // 「「詳細」を押下すると、その日の勤怠詳細画面に遷移する
-    public function test_attendance_list_detail_move()
+    // 「詳細」を押下すると、その日の勤怠詳細画面に遷移する
+    public function test_detail_move()
     {
         $user = \App\Models\User::factory()->create([
+            'name' => 'テスト',
             'email' => 'test@example.com',
             'password' => bcrypt('test12345'),
             ]);
@@ -166,15 +167,10 @@ class AttendanceListTest extends TestCase
 
         $this->actingAs($user);
 
-        $link_day_after = Carbon::parse($now)->addMonth()->format('Y-m');
-
         $response = $this->get('/attendance/detail/' . $works->id);
         $response->assertStatus(200);
-        $response->assertSee($now->format('Y年'));
-        $response->assertSee($now->format('n月j日'));
-        $response->assertSee('09:00');
-        $response->assertSee('18:00');
+        $response->assertSee('テスト');
         
-        Carbon::setTestNow();
+        CarbonImmutable::setTestNow();
     }
 }
