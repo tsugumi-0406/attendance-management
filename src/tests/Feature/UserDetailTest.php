@@ -22,6 +22,7 @@ class UserDetailTest extends TestCase
     public function test_detail_name_view()
     {
         $user = \App\Models\User::factory()->create([
+            'name' => 'テスト',
             'email' => 'test@example.com',
             'password' => bcrypt('test12345'),
             ]);
@@ -41,10 +42,7 @@ class UserDetailTest extends TestCase
 
         $response = $this->get('/attendance/detail/' . $works->id);
         $response->assertStatus(200);
-        $response->assertSee($now->format('Y年'));
-        $response->assertSee($now->format('n月j日'));
-        $response->assertSee('09:00');
-        $response->assertSee('18:00');
+        $response->assertSee('テスト');
         
         Carbon::setTestNow();
     }
