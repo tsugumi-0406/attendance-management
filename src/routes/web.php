@@ -32,7 +32,7 @@ use Illuminate\Foundation\Auth;
 
 // Route::get('/login', [UserLoginController::class, 'login']);
 
-Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
@@ -49,8 +49,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('attendance.detail');
 
-    Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application']);
-
     Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
 });
 
@@ -59,12 +57,12 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
 
-
+Route::post('/admin/login', [AdministratorLoginController::class, 'authenticate']);
 
 
 
 Route::prefix('admin')->group(function () {
-    Route::post('/login', [AdministratorLoginController::class, 'authenticate']);
+    
 
     Route::post('/logout', [AdministratorLoginController::class, 'logout']);
 
@@ -79,18 +77,21 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/stamp_correction_request/list', [AdministratorApplicationController::class, 'application']);
 
-    
-
     Route::post('/approve', [ApprovalController::class, 'approveWork']);
 
     Route::get('/staff/list', [StaffListController::class, 'list']);
 
     Route::get('/attendance/staff/{id}', [StaffAttendanceListController::class, 'list']);
-
-    Route::get('/stamp_correction_request/approve/{work_id}', [ApprovalController::class, 'approval']);
 });
 
+Route::get('/stamp_correction_request/approve/{work_id}',[ApprovalController::class, 'approval']
+)->middleware('auth:admin');
 
+Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application'])
+    ->middleware('auth.any:web,admin');
+
+Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply'])
+    ->middleware('auth.any:web,admin');
 
 
 

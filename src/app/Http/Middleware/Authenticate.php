@@ -3,19 +3,24 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class Authenticate extends Middleware
+class AuthenticateAny
 {
-    /**
-     * Get the path the user should be redirected to when they are not authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return string|null
-     */
-    protected function redirectTo($request)
+    public function handle(Request $request, Closure $next, ...$guards)
     {
-        if (! $request->expectsJson()) {
-            return route('login');
+        $guards = $guards ?: ['web', 'admin'];
+
+        foreach ($guards as $guard) {
+            if (Auth::guard($guard)->check()) {
+                // このリクエストはこのガードを “デフォルト” として扱う
+                Auth::shouldUse($guard);
+                return $next($request);
+            }
         }
+
+        abort(403);
     }
 }

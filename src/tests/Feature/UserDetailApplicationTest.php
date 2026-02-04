@@ -197,6 +197,7 @@ class UserDetailApplicationTest extends TestCase
         CarbonImmutable::setTestNow();
     }
 
+
     // 修正申請処理が実行される
     public function test_application_correction()
     {

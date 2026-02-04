@@ -38,28 +38,21 @@ class UserAttendanceDetailController extends Controller
 
     public function apply(UserAttendanceDetailRequest $request)
     {
-        $work_id = $request->work_id;
+        $work = Work::findOrFail($request->work_id);
 
-        $work = Work::where('id', $work_id)
-                ->first();
+        $targetUserId = $work->user_id;
 
+        $work_id = $work->id;
         $user_id = $work->user_id;
-
-        $date = $work->date;
-
-        $attendance = $request->attendance;
-
-        $leaving = $request->leaving;
-
-        $remarks = $request->remarks;
+        $date    = $work->date;
 
         UnapprovedWork::create([
-            'work_id' => $work_id,
+            'work_id' => $work->id,
             'user_id' => $user_id,
-            'date' => $date,
-            'attendance' => $attendance,
-            'leaving' => $leaving,
-            'remarks' => $remarks,
+            'date' => $work->date,
+            'attendance' => $request->attendance,
+            'leaving' => $request->leaving,
+            'remarks' => $request->remarks,
         ]);
 
         Work::find($work_id)->update([
