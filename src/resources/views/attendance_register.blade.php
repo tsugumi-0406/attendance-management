@@ -16,12 +16,12 @@
         <img src="{{ asset('storage/COACHTECHヘッダーロゴ.png') }}" alt="アプリロゴ" class="header__logo">
         <div class="header-inner">
             @if($status === 'finished')
-                <a class="header-inner__link" href="#">今月の出勤一覧</a>
-                <a class="header-inner__link" href="#">申請一覧</a>
+                <a class="header-inner__link" href="/attendance/list">今月の出勤一覧</a>
+                <a class="header-inner__link" href="/stamp_correction_request/list">申請一覧</a>
             @else
-                <a class="header-inner__link" href="#">勤怠</a>
-                <a class="header-inner__link" href="#">勤怠一覧</a>
-                <a class="header-inner__link" href="#">申請</a>
+                <a class="header-inner__link" href="/attendance">勤怠</a>
+                <a class="header-inner__link" href="/attendance/list">勤怠一覧</a>
+                <a class="header-inner__link" href="/stamp_correction_request/list">申請</a>
             @endif
             <form action="/logout" method="post">
                 @csrf
