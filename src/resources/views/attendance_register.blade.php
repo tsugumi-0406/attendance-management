@@ -23,7 +23,7 @@
                 <a class="header-inner__link" href="#">勤怠一覧</a>
                 <a class="header-inner__link" href="#">申請</a>
             @endif
-            <form action="/admin/logout" method="post">
+            <form action="/logout" method="post">
                 @csrf
                 <button class="header-inner__logout" type="submit">ログアウト</button>
             </form>

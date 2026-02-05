@@ -29,7 +29,7 @@
 
                 <div class="form-line">
                     @php
-                        $work_day = Carbon\Carbon::parse($works->date);
+                        $work_day = Carbon\Carbon::parse($work->date);
                     @endphp
                     <p class="form-item">日付</p>
                     <p class="form-data__year">{{ $work_day->format('Y'); }}年</p>
@@ -39,7 +39,7 @@
 
                 <div class="form-line">
                     @php
-                        $work_status = $works->update;
+                        $work_status = $work->update;
 
                         $break_request = [];
                     @endphp
@@ -47,18 +47,18 @@
 
                     @if($work_status == 'pending')
                         @php
-                            $unapproved_work_attendance = Carbon\Carbon::parse($unapproved_works->attendance)->format('H:i');
+                            $unapproved_work_attendance = Carbon\Carbon::parse($unapproved_work->attendance)->format('H:i');
 
-                            if($unapproved_works->leaving == null){
+                            if($unapproved_work->leaving == null){
                                 $unapproved_work_leaving = '--:--';
                             }else{
-                                $unapproved_work_leaving = Carbon\Carbon::parse($unapproved_works->leaving)->format('H:i');
+                                $unapproved_work_leaving = Carbon\Carbon::parse($unapproved_work->leaving)->format('H:i');
                             }
 
-                            if($unapproved_works->remarks == null){
-                                $unapproved_works_remarks = '';
+                            if($unapproved_work->remarks == null){
+                                $unapproved_work_remarks = '';
                             }else{
-                                $unapproved_works_remarks = $unapproved_works->remarks;
+                                $unapproved_work_remarks = $unapproved_work->remarks;
                             }
                         @endphp
                         <p class="form-item">出勤・退勤</p>
@@ -67,20 +67,20 @@
                         <p class="form-data__leaving-pending">{{ $unapproved_work_leaving }}</p>
                     @else
                         @php
-                            $work_id = $works->id;
+                            $work_id = $work->id;
 
-                            $work_attendance = Carbon\Carbon::parse($works->attendance)->format('H:i');
+                            $work_attendance = Carbon\Carbon::parse($work->attendance)->format('H:i');
 
-                            if($works->leaving == null){
+                            if($work->leaving == null){
                                 $work_leaving = '--:--';
                             }else{
-                                $work_leaving = Carbon\Carbon::parse($works->leaving)->format('H:i');
+                                $work_leaving = Carbon\Carbon::parse($work->leaving)->format('H:i');
                             }
 
-                            if($works->remarks == null){
-                                $works_remarks = '';
+                            if($work->remarks == null){
+                                $work_remarks = '';
                             }else{
-                                $works_remarks = $works->remarks;
+                                $work_remarks = $work->remarks;
                             }
                         @endphp
                         <input type="text" hidden value="{{ $work_id }}" name="work_id">
@@ -140,15 +140,19 @@
                     <p class="form-item">備考</p>
                     @if($work_status == 'pending')
                         <p class="form-data__remarks-pending" name="remarks">
-                            {{ $unapproved_works_remarks }}
+                            {{ $unapproved_work_remarks }}
                         </p>
                      @else
                         <textarea class="form-data__remarks" name="remarks">
-                            {{ $works_remarks }}
+                            {{ $work_remarks }}
                         </textarea>
                     @endif
                 </div>
             </div>
+
+            @error('email')
+                {{ $errors->first('email') }}
+            @enderror
 
 
             @if($work_status == 'pending')

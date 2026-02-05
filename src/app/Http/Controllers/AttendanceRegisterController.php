@@ -16,14 +16,15 @@ class AttendanceRegisterController extends Controller
     {
         $now = CarbonImmutable::now();
         $date = $now->toDateString();
-        $user = Auth::user();
+        $user = Auth::guard()->user();
         $working = Work::where('user_id', $user->id)
                 ->where('date', $date)
                 ->first();
 
         $breaking = BreakTime::where('user_id', $user->id)
                 ->where('date', $date)
-                ->orderBy('start', 'desc')
+                ->whereNull('stop') 
+                ->latest('id')
                 ->first();
 
         if($working != null){
@@ -41,7 +42,7 @@ class AttendanceRegisterController extends Controller
             if($leaving != null){
                 $status = 'finished';
             // 休憩中
-            } elseif ($breaking_start != null && $breaking_stop == null) {
+            } elseif ($breaking != null) {
                 $status = 'breaking';
             // 出勤中
             } elseif ($attending != null and $leaving === null) {

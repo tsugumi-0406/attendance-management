@@ -29,9 +29,12 @@
     margin: 30px auto;
     background-color: #FFFFFF;
     border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .month-before__link{
+    margin-right: 20px;
     font-weight: 700;
     color: #737373;
     text-decoration: none;

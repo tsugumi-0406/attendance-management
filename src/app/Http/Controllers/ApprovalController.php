@@ -24,7 +24,7 @@ class ApprovalController extends Controller
             ->where('date', $work->date)
             ->get();
 
-        $unapproved_work = UnapprovedWork::where('id', $work_id)
+        $unapproved_work = UnapprovedWork::where('work_id', $work_id)
                 ->first();
 
         $unapproved_breaks = UnapprovedBreak::where('user_id', $user->id)
@@ -61,23 +61,24 @@ class ApprovalController extends Controller
 
         }else{
             foreach($break_datas as $break_data){
-                $unapprovedbreak_id = $unapproved_break->id;
+                $break_id = $break_data['break_id'] ?? null;
+                if (!$break_id) {
+                    continue;
+                }
 
-                $unapproved_break = UnapprovedBreak::where('break_id', $unapprovedbreak_id )
-                                ->first();
-                $start = $unapproved_break->start;
-                $stop = $unapproved_break->stop;
-                $application_date = $unapproved_break->created_at;
-                $break_id = $unapproved_break->break_id;
+                $unapproved_break = UnapprovedBreak::where('break_id', $break_id)->first();
+                if (!$unapproved_break) {
+                    continue; // 申請が無ければスキップ（または abort(404)）
+                }
 
                 BreakTime::find($break_id)->update([
-                    'start' => $start,
-                    'stop' => $stop,
+                    'start' => $unapproved_break->start,
+                    'stop' => $unapproved_break->stop,
                     'update' => 'done',
-                    'application_date' => $application_date
+                    'application_date' => $unapproved_break->created_at,
                 ]);
 
-                UnapprovedBreak::where('work_id', $work_id)->delete();
+                UnapprovedBreak::where('break_id', $break_id)->delete();
             }
         }
 

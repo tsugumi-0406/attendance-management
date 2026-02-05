@@ -13,6 +13,32 @@ class UserApplicationController extends Controller
     {
         $tab = $request->query('tab', 'waiting');
 
+        $isAdmin = Auth::guard('admin')->check();
+
+        if ($isAdmin) {
+            switch ($tab) {
+                case 'done':
+                    $works = Work::with('user')->where('update', 'done')->get();
+
+                    $unapproved_works = collect();
+
+                    $user = Work::with('user');
+
+                break;
+
+                case 'waiting':
+                default:  
+                    $unapproved_works = UnapprovedWork::get();
+
+                    $works = collect();
+
+                    $user = UnapprovedWork::with('user');
+        
+                break;
+            }
+            return view('administrator_application', compact('tab', 'works', 'unapproved_works', 'user'));
+        }
+
         $user = Auth::user();
 
         switch ($tab) {

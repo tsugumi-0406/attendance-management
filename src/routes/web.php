@@ -14,6 +14,7 @@ use App\Http\Controllers\StaffListController;
 use App\Http\Controllers\StaffAttendanceListController;
 use App\Http\Controllers\AdministratorApplicationController;
 use App\Http\Controllers\ApprovalController;
+use Illuminate\Foundation\Auth;
 
 
 /*
@@ -29,11 +30,10 @@ use App\Http\Controllers\ApprovalController;
 
 // Route::get('/register', [RegisterController::class, 'register']);
 
-// Route::get('/login', [UserLoginController::class, 'login']);
+Route::get('/login', [UserLoginController::class, 'login'])->name('user.login');
 
-Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply']);
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:web')->group(function () {
     Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
 
     Route::post('/stamp/attendance', [AttendanceRegisterController::class, 'stampAttendance']);
@@ -47,14 +47,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/attendance/list', [UserAttendanceListController::class, 'list']);
 
     Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('attendance.detail');
-
-    Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application']);
-
-    Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
 });
 
+
+
+
+Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
+
+Route::post('/admin/login', [AdministratorLoginController::class, 'authenticate']);
+
+
+
 Route::prefix('admin')->group(function () {
-    Route::post('/login', [AdministratorLoginController::class, 'authenticate']);
+    
 
     Route::post('/logout', [AdministratorLoginController::class, 'logout']);
 
@@ -69,14 +74,21 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/stamp_correction_request/list', [AdministratorApplicationController::class, 'application']);
 
-    Route::get('/stamp_correction_request/approve/{work_id}', [ApprovalController::class, 'approval']);
-
     Route::post('/approve', [ApprovalController::class, 'approveWork']);
 
     Route::get('/staff/list', [StaffListController::class, 'list']);
 
     Route::get('/attendance/staff/{id}', [StaffAttendanceListController::class, 'list']);
 });
+
+Route::get('/stamp_correction_request/approve/{work_id}',[ApprovalController::class, 'approval']
+)->middleware('auth:admin');
+
+Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application'])
+    ->middleware('auth.any:web,admin');
+
+Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply'])
+    ->middleware('auth.any:web,admin');
 
 
 

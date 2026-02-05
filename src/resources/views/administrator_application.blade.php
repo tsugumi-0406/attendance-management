@@ -12,8 +12,8 @@
             <h1 class="main-title__sentence"> 申請一覧</h1>
         </div>
         <div class="page-link">
-            <a href="/admin/stamp_correction_request/list?tab=waiting" class="tab-link">承認待ち</a>
-            <a href="/admin/stamp_correction_request/list?tab=done" class="tab-link">承認済み</a>
+            <a href="/stamp_correction_request/list?tab=waiting" class="tab-link">承認待ち</a>
+            <a href="/stamp_correction_request/list?tab=done" class="tab-link">承認済み</a>
         </div>
         
         @if($tab === 'waiting')
@@ -36,7 +36,7 @@
                         <td class="td">{{ Carbon\Carbon::parse($unapproved_work->date)->format('Y/m/d'); }}</td>
                         <td class="td">{{ $unapproved_work->remarks }}</td>
                         <td class="td">{{ Carbon\Carbon::parse($unapproved_work->application_date)->format('Y/m/d'); }}</td>
-                        <td class="td"><a href="/admin/stamp_correction_request/approve/{{$unapproved_work_id}}" class="td-detail">詳細</a></td>
+                        <td class="td"><a href="/stamp_correction_request/approve/{{$unapproved_work_id}}" class="td-detail">詳細</a></td>
                     </tr>
                 @endforeach
             </table>
@@ -56,12 +56,12 @@
                         $work_id = $work->id;
                     @endphp
                     <tr>
-                        <td class="td">承認待ち</td>
+                        <td class="td">承認済み</td>
                         <td class="td">{{ $work->user->name }}</td>
                         <td class="td">{{ Carbon\Carbon::parse($work->date)->format('Y/m/d'); }}</td>
                         <td class="td">{{ $work->remarks }}</td>
                         <td class="td">{{ Carbon\Carbon::parse($work->application_date)->format('Y/m/d'); }}</td>
-                        <td class="td"><a href="/admin/stamp_correction_request/approve/{{$work_id}}" class="td-detail">詳細</a></td>
+                        <td class="td"><a href="/stamp_correction_request/approve/{{$work_id}}" class="td-detail">詳細</a></td>
                     </tr>
                 @endforeach
             </table>

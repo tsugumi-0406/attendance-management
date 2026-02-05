@@ -60,7 +60,7 @@
     height: 30px;
     width: 100px;
     margin: auto 0 auto 145px;
-    border: solid 1px #FFFFFF;
+    border: solid 1px #E1E1E1;;
     text-align: center;
 }
 
@@ -71,6 +71,7 @@
     margin: auto 0 auto 125px;
     text-align: center;
 }
+
 
 .form-data__mark{
     font-size: 16px;

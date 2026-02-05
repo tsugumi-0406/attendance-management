@@ -16,50 +16,43 @@ class UserAttendanceDetailController extends Controller
 {
     public function detail($id)
     {
-        $works = Work::where('id', $id)
-                ->first();
+        $work = Work::where('id', $id)
+                ->firstOrFail();
 
-        $user = User::where('id', $works->user_id)
+        $user = User::where('id', $work->user_id)
                 ->first();
         
         $breaks = BreakTime::where('user_id', $user->id)
-            ->where('date', $works->date)
+            ->where('date', $work->date)
             ->get();
 
-        $unapproved_works = UnapprovedWork::where('id', $id)
+        $unapproved_work = UnapprovedWork::where('work_id', $id)
                 ->first();
 
         $unapproved_breaks = UnapprovedBreak::where('user_id', $user->id)
-            ->where('date', $works->date)
+            ->where('date', $work->date)
             ->get();
 
-        return view('user_attendance_detail', compact('works', 'user', 'breaks', 'unapproved_works', 'unapproved_breaks'));
+        return view('user_attendance_detail', compact('work', 'user', 'breaks', 'unapproved_work', 'unapproved_breaks'));
     }
 
     public function apply(UserAttendanceDetailRequest $request)
     {
-        $work_id = $request->work_id;
+        $work = Work::findOrFail($request->work_id);
 
-        $work = Work::where('id', $work_id)
-                ->first();
+        $targetUserId = $work->user_id;
 
+        $work_id = $work->id;
         $user_id = $work->user_id;
-
-        $date = $work->date;
-
-        $attendance = $request->attendance;
-
-        $leaving = $request->leaving;
-
-        $remarks = $request->remarks;
+        $date    = $work->date;
 
         UnapprovedWork::create([
-            'work_id' => $work_id,
+            'work_id' => $work->id,
             'user_id' => $user_id,
-            'date' => $date,
-            'attendance' => $attendance,
-            'leaving' => $leaving,
-            'remarks' => $remarks,
+            'date' => $work->date,
+            'attendance' => $request->attendance,
+            'leaving' => $request->leaving,
+            'remarks' => $request->remarks,
         ]);
 
         Work::find($work_id)->update([
