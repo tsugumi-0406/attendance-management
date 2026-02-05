@@ -15,9 +15,9 @@
     <header class="header">
         <img src="{{ asset('storage/COACHTECHヘッダーロゴ.png') }}" alt="アプリロゴ" class="header__logo">
         <div class="header-inner">
-            <a class="header-inner__link" href="#">勤怠</a>
-            <a class="header-inner__link" href="#">勤怠一覧</a>
-            <a class="header-inner__link" href="#">申請</a>
+            <a class="header-inner__link" href="/attendance">勤怠</a>
+            <a class="header-inner__link" href="/attendance/list">勤怠一覧</a>
+            <a class="header-inner__link" href="/stamp_correction_request/list">申請</a>
             <form action="/logout" method="post">
                 @csrf
                 <button class="header-inner__logout" type="submit">ログアウト</button>
