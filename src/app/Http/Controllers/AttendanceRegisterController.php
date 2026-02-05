@@ -16,7 +16,7 @@ class AttendanceRegisterController extends Controller
     {
         $now = CarbonImmutable::now();
         $date = $now->toDateString();
-        $user = Auth::user();
+        $user = Auth::guard()->user();
         $working = Work::where('user_id', $user->id)
                 ->where('date', $date)
                 ->first();

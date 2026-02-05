@@ -150,6 +150,10 @@
                 </div>
             </div>
 
+            @error('email')
+                {{ $errors->first('email') }}
+            @enderror
+
 
             @if($work_status == 'pending')
                 <p class="pending-comment">*承認待ちのため修正はできません。</p>

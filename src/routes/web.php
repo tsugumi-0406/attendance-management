@@ -30,11 +30,10 @@ use Illuminate\Foundation\Auth;
 
 // Route::get('/register', [RegisterController::class, 'register']);
 
-// Route::get('/login', [UserLoginController::class, 'login']);
+Route::get('/login', [UserLoginController::class, 'login'])->name('user.login');
 
 
-
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:web')->group(function () {
     Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
 
     Route::post('/stamp/attendance', [AttendanceRegisterController::class, 'stampAttendance']);
@@ -48,8 +47,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/attendance/list', [UserAttendanceListController::class, 'list']);
 
     Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('attendance.detail');
-
-    Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
 });
 
 

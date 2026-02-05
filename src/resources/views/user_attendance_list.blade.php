@@ -17,7 +17,7 @@
             <div class="month-before">
                 <a href="/attendance/list?month={{ $link_day_before }}" class="month-before__link">
                     <ion-icon name="arrow-back-outline"></ion-icon>
-                    先月
+                    前月
                 </a>
             </div>
             <div class="month-now">
