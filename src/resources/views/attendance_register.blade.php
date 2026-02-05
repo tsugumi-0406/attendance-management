@@ -46,7 +46,10 @@
         @endif
 
 
-        <p class="main__date">{{ $now->year; }}年{{ $now->month; }}月{{ $now->day; }}日</p>
+        @php
+            $week_dd = $now->dayOfWeek;
+        @endphp
+        <p class="main__date">{{ $now->year; }}年{{ $now->month; }}月{{ $now->day; }}日({{ $dd[$week_dd]; }})</p>
         <p class="main__time" id="realtime-clock">{{ $now->format('H:i') }}</p>
 
 

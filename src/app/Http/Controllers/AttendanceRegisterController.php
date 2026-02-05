@@ -27,6 +27,16 @@ class AttendanceRegisterController extends Controller
                 ->latest('id')
                 ->first();
 
+        $dd = array(
+            '0' => '日',
+            '1' => '月',
+            '2' => '火',
+            '3' => '水',
+            '4' => '木',
+            '5' => '金',
+            '6' => '土'
+            );
+
         if($working != null){
             $attending = $working->attendance;
             $leaving = $working->leaving;
@@ -55,7 +65,7 @@ class AttendanceRegisterController extends Controller
                 $status = 'off';
         }
 
-        return view('attendance_register', compact('now', 'status'));
+        return view('attendance_register', compact('now', 'status', 'dd'));
     }
 
 
