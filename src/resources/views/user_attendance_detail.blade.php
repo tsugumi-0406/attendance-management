@@ -139,20 +139,41 @@
                 <div class="form-line">
                     <p class="form-item">備考</p>
                     @if($work_status == 'pending')
-                        <p class="form-data__remarks-pending" name="remarks">
-                            {{ $unapproved_work_remarks }}
+                        <p class="form-data__remarks-pending" name="remarks">{{ $unapproved_work_remarks }}
                         </p>
                      @else
-                        <textarea class="form-data__remarks" name="remarks">
-                            {{ $work_remarks }}
-                        </textarea>
+                        <textarea class="form-data__remarks" name="remarks">{{ $work_remarks }}</textarea>
                     @endif
                 </div>
             </div>
 
-            @error('email')
-                {{ $errors->first('email') }}
-            @enderror
+            <div class="error">
+                <br>
+                    @error('attendance')
+                        {{ $errors->first('attendance') }}
+                    @enderror
+                <br>
+                    @error('leaving')
+                        {{ $errors->first('leaving') }}
+                    @enderror
+                <br>
+                    @error('break_requests')
+                        {{ $errors->first('break_requests') }}
+                    @enderror
+                <br>
+                    @if ($errors->has('break_requests'))
+                        @foreach ($errors->get('break_requests.*') as $messages)
+                            @foreach ($messages as $message)
+                                <div>{{ $message }}</div>
+                            @endforeach
+                        @endforeach
+                    @endif
+                <br>
+                    @error('break_requests')
+                        {{ $errors->first('break_requests') }}
+                    @enderror
+            </div>
+            
 
 
             @if($work_status == 'pending')
