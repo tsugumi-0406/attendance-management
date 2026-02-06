@@ -47,6 +47,8 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/attendance/list', [UserAttendanceListController::class, 'list']);
 
     Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('attendance.detail');
+
+    Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply']);
 });
 
 
@@ -66,7 +68,7 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/attendance/list', [AdministratorAttendanceListController::class, 'attendancelist']);
 
-    Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('admin.attendance.detail');
+    Route::get('/attendance/detail/{id}', [AdministratorAttendanceDetailController::class, 'detail'])->name('admin.attendance.detail');
 
     Route::get('/attendance/{id}', [AdministratorAttendanceDetailController::class, 'detail']);
 
@@ -79,6 +81,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/staff/list', [StaffListController::class, 'list']);
 
     Route::get('/attendance/staff/{id}', [StaffAttendanceListController::class, 'list']);
+
+    Route::post('/attendance/correction/apply', [AdministratorAttendanceDetailController::class, 'apply']);
 });
 
 Route::get('/stamp_correction_request/approve/{work_id}',[ApprovalController::class, 'approval']
@@ -87,8 +91,7 @@ Route::get('/stamp_correction_request/approve/{work_id}',[ApprovalController::cl
 Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application'])
     ->middleware('auth.any:web,admin');
 
-Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply'])
-    ->middleware('auth.any:web,admin');
+
 
 
 
