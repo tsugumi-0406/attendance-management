@@ -39,21 +39,13 @@ class AdministratorAttendanceDetailController extends Controller
         $now = CarbonImmutable::now();
         $date = $now->toDateString();
 
-         $work->update([
+        $work->update([
             'attendance' => $request->attendance,
             'leaving' => $request->leaving,
             'remarks' => $request->remarks,
             'update' => 'done',
             'application_date' => $date,
         ]);
-
-        $work->refresh();
-
-dd([
-  'expected' => $date,
-  'after_raw' => $work->getRawOriginal('application_date'),
-  'after_casted' => $work->application_date,
-]);
 
         $break_datas = $request->break_requests;
 

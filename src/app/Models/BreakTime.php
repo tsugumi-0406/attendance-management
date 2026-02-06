@@ -11,5 +11,5 @@ class BreakTime extends Model
 
     protected $table = 'breaks';
 
-    protected $fillable = ['user_id', 'date', 'start', 'stop', 'update'];
+    protected $fillable = ['user_id', 'date', 'start', 'stop', 'update', 'application_date'];
 }
