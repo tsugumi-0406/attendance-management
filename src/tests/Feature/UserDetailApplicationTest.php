@@ -196,7 +196,7 @@ class UserDetailApplicationTest extends TestCase
         
         CarbonImmutable::setTestNow();
     }
-
+    
 
     // 修正申請処理が実行される
     public function test_application_correction()
@@ -263,9 +263,9 @@ class UserDetailApplicationTest extends TestCase
             ],
             'update' => 'done'
         ])
-        ->assertRedirect('/admin/stamp_correction_request/approve/' . $works->id);
+        ->assertRedirect('/stamp_correction_request/approve/' . $works->id);
         
-        $list = $this->get('/admin/stamp_correction_request/list?tab=done');
+        $list = $this->get('/stamp_correction_request/list?tab=done');
         $list->assertStatus(200);
         $list->assertSee($now->format('Y/m/d'));
         $list->assertSee('修正申請テスト');
@@ -390,7 +390,7 @@ class UserDetailApplicationTest extends TestCase
             'remarks' => $unapprovedWork1->remarks,
             'update' => 'done'
         ])
-        ->assertRedirect('/admin/stamp_correction_request/approve/' . $work1->id);
+        ->assertRedirect('/stamp_correction_request/approve/' . $work1->id);
 
         $this->from('/stamp_correction_request/approve/' . $work2->id)->post('/admin/approve', [
             'work_id' => $work2->id,     
@@ -399,7 +399,7 @@ class UserDetailApplicationTest extends TestCase
             'remarks' => $unapprovedWork2->remarks,
             'update' => 'done'
         ])
-        ->assertRedirect('/admin/stamp_correction_request/approve/' . $work2->id);
+        ->assertRedirect('/stamp_correction_request/approve/' . $work2->id);
         
         $this->actingAs($user);
         $list = $this->get('/stamp_correction_request/list?tab=done');

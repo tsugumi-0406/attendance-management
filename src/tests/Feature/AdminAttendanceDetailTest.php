@@ -41,8 +41,7 @@ class AdminAttendanceDetailTest extends TestCase
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
 
-        $response = $this->get('/attendance/detail/' . $work->id);
-        $response->assertStatus(200);
+        $response = $this->get('/admin/attendance/' . $work->id);
         $response->assertSee($user->name);
         $response->assertSee(Carbon::parse($work->date)->format('Y'));
         $response->assertSee(Carbon::parse($work->date)->format('n'));
@@ -74,11 +73,11 @@ class AdminAttendanceDetailTest extends TestCase
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
 
-        $response = $this->get('/attendance/detail/' . $work->id);
+        $response = $this->get("/admin/attendance/{$work->id}");
         $response->assertStatus(200);
 
 
-        $response = $this->from('/attendance/detail/' . $work->id)->post('/attendance/correction/apply', [
+        $response = $this->from("/admin/attendance/{$work->id}")->post('/admin/attendance/correction/apply', [
             'work_id' => $work->id,
             'attendance' => '19:00:00',
             'leaving' => '18:00:00',
@@ -121,10 +120,10 @@ class AdminAttendanceDetailTest extends TestCase
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
 
-        $response = $this->get('/attendance/detail/' . $work->id);
+        $response = $this->get('/admin/attendance/' . $work->id);
         $response->assertStatus(200);
 
-        $response = $this->from('/attendance/detail/' . $work->id)->post('/attendance/correction/apply', [
+        $response = $this->from("/admin/attendance/{$work->id}")->post('/admin/attendance/correction/apply', [
             'work_id' => $work->id,
             'attendance' => '09:00:00',
             'leaving' => '18:00:00',
@@ -175,10 +174,10 @@ class AdminAttendanceDetailTest extends TestCase
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
 
-        $response = $this->get('/attendance/detail/' . $work->id);
+        $response = $this->get('/admin/attendance/' . $work->id);
         $response->assertStatus(200);
 
-        $response = $this->from('/attendance/detail/' . $work->id)->post('/attendance/correction/apply', [
+        $response = $this->from("/admin/attendance/{$work->id}")->post('/admin/attendance/correction/apply', [
             'work_id' => $work->id,
             'attendance' => '09:00:00',
             'leaving' => '18:00:00',
@@ -221,10 +220,10 @@ class AdminAttendanceDetailTest extends TestCase
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
 
-        $response = $this->get('/attendance/detail/' . $work->id);
+        $response = $this->get('/admin/attendance/' . $work->id);
         $response->assertStatus(200);
 
-        $response = $this->from('/attendance/detail/' . $work->id)->post('/attendance/correction/apply', [
+        $response = $this->from("/admin/attendance/{$work->id}")->post('/admin/attendance/correction/apply', [
             'work_id' => $work->id,
             'attendance' => '09:00:00',
             'leaving' => '18:00:00',

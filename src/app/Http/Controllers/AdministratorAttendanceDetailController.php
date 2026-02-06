@@ -72,6 +72,6 @@ class AdministratorAttendanceDetailController extends Controller
             }
         }
 
-        return redirect('/admin/attendance/detail/' . $work->id);
+        return redirect('/admin/attendance/' . $work->id);
     }
 }
