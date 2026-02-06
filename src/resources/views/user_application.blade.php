@@ -11,8 +11,8 @@
             <h1 class="main-title__sentence"> 申請一覧</h1>
         </div>
         <div class="page-link">
-            <a href="/stamp_correction_request/list?tab=waiting" class="tab-link">承認待ち</a>
-            <a href="/stamp_correction_request/list?tab=done" class="tab-link">承認済み</a>
+            <a href="/stamp_correction_request/list?tab=waiting" class="tab-link {{ $tab === 'waiting' ? 'active' : '' }}">承認待ち</a>
+            <a href="/stamp_correction_request/list?tab=done" class="tab-link {{ $tab === 'done' ? 'active' : '' }}">承認済み</a>
         </div>
         
         @if($tab === 'waiting')
@@ -54,7 +54,9 @@
                         <td class="td">{{ Carbon\Carbon::parse($work->date)->format('Y/m/d'); }}</td>
                         <td class="td">{{ $work->remarks }}</td>
                         <td class="td">{{ Carbon\Carbon::parse($work->application_date)->format('Y/m/d'); }}</td>
-                        <td class="td"><a class="td-detail" href="{{ route('attendance.detail', ['id' => $work->id]) }}" class="item-link"><span class="td-detail">詳細</span></a></td>
+                        <td class="td">
+                            <a class="td-detail" href="{{ route('attendance.detail', ['id' => $work->id]) }}" class="item-link">詳細</a>
+                        </td>
                     </tr>
                 @endforeach
             </table>
