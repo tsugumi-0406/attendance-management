@@ -78,6 +78,6 @@ class LeavingTest extends TestCase
         $response->assertSee($now_leaving->format('m/d'));
         $response->assertSee($now_leaving->format('H:i'));
 
-        Carbon::setTestNow();
+        CarbonImmutable::setTestNow();
     }
 }

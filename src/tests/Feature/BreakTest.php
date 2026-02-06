@@ -192,6 +192,6 @@ class BreakTest extends TestCase
         $response->assertSee('02/02');
         $response->assertSee('1:00');
         
-        Carbon::setTestNow();
+        CarbonImmutable::setTestNow();
     }
 }
