@@ -25,7 +25,7 @@
                     <td class="td">{{ $staff->name }}</td>
                     <td class="td">{{ $staff->email }}</td>
                     <td class="td">
-                        <a class="td-detail" href="/admin/attendance/staff?id=$staff_id">詳細</a></td>
+                        <a class="td-detail" href="/admin/attendance/staff/{{ $staff_id }}">詳細</a></td>
                 </tr>
             @endforeach
         </table>

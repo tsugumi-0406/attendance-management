@@ -27,6 +27,7 @@
     color: #737373;
     background-color: #FFFFFF;
     width: 100%;
+    border-radius: 10px;
 }
 
 .th,
@@ -41,4 +42,5 @@
 .td-detail {
     font-weight: bold;
     color: #000000;
+    text-decoration: none;
 }
