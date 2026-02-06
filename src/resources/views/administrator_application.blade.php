@@ -12,8 +12,8 @@
             <h1 class="main-title__sentence"> 申請一覧</h1>
         </div>
         <div class="page-link">
-            <a href="/stamp_correction_request/list?tab=waiting" class="tab-link">承認待ち</a>
-            <a href="/stamp_correction_request/list?tab=done" class="tab-link">承認済み</a>
+            <a href="/stamp_correction_request/list?tab=waiting" class="tab-link {{ $tab === 'waiting' ? 'active' : '' }}">承認待ち</a>
+            <a href="/stamp_correction_request/list?tab=done" class="tab-link {{ $tab === 'done' ? 'active' : '' }}">承認済み</a>
         </div>
         
         @if($tab === 'waiting')
