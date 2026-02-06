@@ -51,7 +51,7 @@ class AttendanceListTest extends TestCase
         $response->assertSee('9:00');
         $response->assertSee('8:00');
         
-        Carbon::setTestNow();
+        CarbonImmutable::setTestNow();
     }
 
     // 勤怠一覧画面に遷移した際に現在の月が表示される
@@ -106,7 +106,7 @@ class AttendanceListTest extends TestCase
         $response->assertSee('09:00');
         $response->assertSee('18:00');
         
-        Carbon::setTestNow();
+        CarbonImmutable::setTestNow();
     }
 
     // 「翌月」を押下した時に表示月の前月の情報が表示される
@@ -142,7 +142,7 @@ class AttendanceListTest extends TestCase
         $response->assertSee('09:00');
         $response->assertSee('18:00');
         
-        Carbon::setTestNow();
+        CarbonImmutable::setTestNow();
     }
 
     // 「詳細」を押下すると、その日の勤怠詳細画面に遷移する

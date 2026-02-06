@@ -95,6 +95,6 @@ class AttendanceTest extends TestCase
         $response->assertSee($now->format('m/d'));
         $response->assertSee($now->format('H:i'));
 
-        Carbon::setTestNow();
+        CarbonImmutable::setTestNow();
     }
 }

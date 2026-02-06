@@ -44,7 +44,7 @@ class UserDetailTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('テスト');
         
-        Carbon::setTestNow();
+        CarbonImmutable::setTestNow();
     }
 
     // 「勤怠詳細画面の「日付」が選択した日付になっている
@@ -73,7 +73,7 @@ class UserDetailTest extends TestCase
         $response->assertSee($now->format('Y年'));
         $response->assertSee($now->format('n月j日'));
         
-        Carbon::setTestNow();
+        CarbonImmutable::setTestNow();
     }
 
     // 「出勤・退勤」にて記されている時間がログインユーザーの打刻と一致している
