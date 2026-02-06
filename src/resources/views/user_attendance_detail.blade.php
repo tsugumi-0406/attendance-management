@@ -161,16 +161,22 @@
                         {{ $errors->first('break_requests') }}
                     @enderror
                 <br>
-                    @if ($errors->has('break_requests'))
-                        @foreach ($errors->get('break_requests.*') as $messages)
+                    @if ($errors->has('break_requests.*.start') || $errors->has('break_requests.*.stop'))
+                        @foreach ($errors->get('break_requests.*.start') as $messages)
+                            @foreach ($messages as $message)
+                                <div>{{ $message }}</div>
+                            @endforeach
+                        @endforeach
+
+                        @foreach ($errors->get('break_requests.*.stop') as $messages)
                             @foreach ($messages as $message)
                                 <div>{{ $message }}</div>
                             @endforeach
                         @endforeach
                     @endif
                 <br>
-                    @error('break_requests')
-                        {{ $errors->first('break_requests') }}
+                    @error('remarks')
+                        {{ $errors->first('remarks') }}
                     @enderror
             </div>
             
