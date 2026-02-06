@@ -32,6 +32,13 @@
 .tab-link {
     font-size: 16px;
     text-decoration: none;
+    color: #737373;
+    margin-left: 50px;
+}
+
+.tab-link.active {
+    font-size: 16px;
+    text-decoration: none;
     color: #000000;
     margin-left: 50px;
 }
@@ -40,6 +47,7 @@
     color: #737373;
     background-color: #FFFFFF;
     width: 100%;
+    border-radius: 10px;
 }
 
 .th,
@@ -54,4 +62,5 @@
 .td-detail {
     font-weight: bold;
     color: #000000;
+    text-decoration: none;
 }

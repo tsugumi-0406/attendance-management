@@ -44,15 +44,6 @@
     margin-left: 50px;
 }
 
-.tab-link:visited {
-    color: #737373;
-    text-decoration: none;
-}
-
-.tab-link.active:visited {
-    color: #000000;
-}
-
 .table {
     color: #737373;
     background-color: #FFFFFF;
