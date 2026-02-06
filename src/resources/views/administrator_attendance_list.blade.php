@@ -12,19 +12,19 @@
             <div class="marin-title__div">a</div>
             <h1 class="main-title__sentence"> {{ $base_date->format('Y'); }}年{{ $base_date->format('n'); }}月{{ $base_date->format('d'); }}日の勤怠</h1>
         </div>
-        <div class="month">
-            <div class="month-before">
-                <a href="/admin/attendance/list?day={{ $link_day_before }}" class="month-before__link">
+        <div class="day">
+            <div class="day-before">
+                <a href="/admin/attendance/list?day={{ $link_day_before }}" class="day-before__link">
                     <ion-icon name="arrow-back-outline"></ion-icon>
                     前日
                 </a>
             </div>
-            <div class="month-now">
+            <div class="day-now">
                 <ion-icon name="calendar-outline"></ion-icon>
                 {{ $base_date->format('Y/m/d'); }}
             </div>
-            <div class="month-after">
-                <a href="/admin/attendance/list?day={{ $link_day_after }}" class="month-after__link">
+            <div class="day-after">
+                <a href="/admin/attendance/list?day={{ $link_day_after }}" class="day-after__link">
                     翌日
                     <ion-icon name="arrow-forward-outline"></ion-icon>
                 </a>
@@ -51,17 +51,11 @@
                             {{ Carbon\Carbon::parse($work->leaving)->format('H:i'); }}
                         @endif
                     </td>
-                     @php
-                        $work_date = Carbon\Carbon::parse($work->date)->format('Y-m-d');
-                        if(empty( $break_date[ $work_date ])){
-                            $break_seconds = 0;
-                        }
-                        else{
-                            $break_seconds = $break_date[$work_date];
-                        }
+                    @php
+                        $break_seconds = $break_seconds_by_user[$work->user_id] ?? 0;
                     @endphp
                     <td class="td">
-                        {{ floor($break_seconds/ 3600) . ':' . sprintf('%02d',floor(($break_seconds % 3600) / 60)); }}
+                        {{ floor($break_seconds / 3600) . ':' . sprintf('%02d', floor(($break_seconds % 3600) / 60)) }}
                     </td>
                     <td class="td">
                         @if(empty( $work['leaving']))
@@ -83,4 +77,5 @@
             @endforeach
         </table>
     </div>
+
 @endsection

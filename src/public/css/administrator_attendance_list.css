@@ -22,19 +22,28 @@
     margin-right: 10px;
 }
 
-.month {
+.day {
     display: flex;
     justify-content: space-between;
     width: 100%;
     margin: 30px auto;
     background-color: #FFFFFF;
     border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+
+.day-before__link, .day-after__link{
+    text-decoration: none;
+    color: #737373;
 }
 
 .table {
     color: #737373;
     background-color: #FFFFFF;
     width: 100%;
+    border-radius: 10px;
 }
 
 .th,
@@ -49,4 +58,5 @@
 .td-detail {
     font-weight: bold;
     color: #000000;
+    text-decoration: none;
 }

@@ -35,26 +35,23 @@ class AdministratorAttendanceListController extends Controller
 
         $user = Work::with('user');
 
-        $break_date = [];
-        foreach($breaks as $break){
-            $date = $break['date'];
+        $break_seconds_by_user = [];
 
-            if(empty( $break_date[ $date ] ))
-                $break_date[$date] = 0;
+        foreach ($breaks as $break) {
+            $uid = $break->user_id;
 
-            // 休憩終了がない場合   
-            if($break['stop'] == null){}
-            else{
-                $start_date_time = $date . ' ' . $break['start'];
-                $stop_date_time = $date . ' ' . $break['stop']; 
-                $start_time = Carbon::parse($start_date_time);
-                $end_time = Carbon::parse($stop_date_time); 
-                $diffInSeconds = $start_time->diffInSeconds($end_time);
+            $break_seconds_by_user[$uid] ??= 0;
 
-                $break_date[$date] += $diffInSeconds;   
-            }
+            // stop が無い（休憩中）なら加算しない
+            if ($break->stop === null) continue;
+
+            $date = Carbon::parse($break->date)->format('Y-m-d');
+            $start = Carbon::parse($date . ' ' . $break->start);
+            $end   = Carbon::parse($date . ' ' . $break->stop);
+
+            $break_seconds_by_user[$uid] += $start->diffInSeconds($end);
         }
         
-        return view('administrator_attendance_list', compact('base_date', 'works', 'link_day_before', 'link_day_after', 'user'));
+        return view('administrator_attendance_list', compact('base_date', 'works', 'link_day_before', 'link_day_after', 'user', 'break_seconds_by_user'));
     }
 }
