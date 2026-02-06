@@ -91,9 +91,9 @@
             @endforeach
         </table>
         <div class="export-form">
-            <form action="{{'/admin/export/staff/' . $user->id . '?' . http_build_query(request()->query())}}" method="post">
+            <form action="{{'/admin/export/staff/' . $user->id . '?' . http_build_query(request()->query())}}" method="post" class="export">
                 @csrf
-                <input class="export__btn btn" type="submit" value="エクスポート">
+                <input class="export__btn btn" type="submit" value="CSV出力">
             </form>
         </div>
     </div>
