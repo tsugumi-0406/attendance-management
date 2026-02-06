@@ -26,7 +26,7 @@ class AdministratorLoginController extends Controller
         }
 
         return back()
-            ->withErrors(['email' => 'メールアドレスまたはパスワードが違います'])
+            ->withErrors(['email' => 'ログイン情報が登録されていません'])
             ->onlyInput('email');
     }
 
