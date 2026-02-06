@@ -12,6 +12,7 @@ use Carbon\Carbon;
 
 class ApprovalController extends Controller
 {
+    // 承認画面表示
     public function approval(Request $request, $work_id)
     {
         $work = Work::where('id', $work_id)
@@ -34,6 +35,7 @@ class ApprovalController extends Controller
         return view('approval', compact('work', 'user', 'breaks', 'unapproved_work', 'unapproved_breaks'));
     }
 
+    // 承認する
     public function approveWork(Request $request)
     {
         $work_id = $request->work_id;
@@ -82,6 +84,6 @@ class ApprovalController extends Controller
             }
         }
 
-        return redirect('/admin/stamp_correction_request/approve/' . $work_id);
+        return redirect('/stamp_correction_request/approve/' . $work_id);
     }
 }
