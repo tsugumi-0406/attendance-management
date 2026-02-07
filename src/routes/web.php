@@ -1,93 +1,113 @@
-    <?php
+<?php
 
-    use Illuminate\Support\Facades\Route;
-    use App\Http\Controllers\RegisterController;
-    use App\Http\Controllers\UserLoginController;
-    use App\Http\Controllers\AttendanceRegisterController;
-    use App\Http\Controllers\UserAttendanceListController;
-    use App\Http\Controllers\UserAttendanceDetailController;
-    use App\Http\Controllers\UserApplicationController;
-    use App\Http\Controllers\AdministratorLoginController;
-    use App\Http\Controllers\AdministratorAttendanceListController;
-    use App\Http\Controllers\AdministratorAttendanceDetailController;
-    use App\Http\Controllers\StaffListController;
-    use App\Http\Controllers\StaffAttendanceListController;
-    use App\Http\Controllers\AdministratorApplicationController;
-    use App\Http\Controllers\ApprovalController;
-    use Illuminate\Foundation\Auth;
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Web Routes
-    |--------------------------------------------------------------------------
-    |
-    | Here is where you can register web routes for your application. These
-    | routes are loaded by the RouteServiceProvider within a group which
-    | contains the "web" middleware group. Now create something great!
-    |
-    */
-
-    // Route::get('/register', [RegisterController::class, 'register']);
-
-    Route::get('/login', [UserLoginController::class, 'login'])->name('user.login');
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserLoginController;
+use App\Http\Controllers\AttendanceRegisterController;
+use App\Http\Controllers\UserAttendanceListController;
+use App\Http\Controllers\UserAttendanceDetailController;
+use App\Http\Controllers\UserApplicationController;
+use App\Http\Controllers\AdministratorLoginController;
+use App\Http\Controllers\AdministratorAttendanceListController;
+use App\Http\Controllers\AdministratorAttendanceDetailController;
+use App\Http\Controllers\StaffListController;
+use App\Http\Controllers\StaffAttendanceListController;
+use App\Http\Controllers\AdministratorApplicationController;
+use App\Http\Controllers\ApprovalController;
+use Illuminate\Foundation\Auth;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 
-    Route::middleware('auth:web')->group(function () {
-        Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
-        Route::post('/stamp/attendance', [AttendanceRegisterController::class, 'stampAttendance']);
+Route::middleware('web')->group(function () {
+Route::get('/register', [RegisterController::class, 'register'])->name('register');
+Route::post('/register', [RegisterController::class, 'store']);
+});
+Route::get('/login', [UserLoginController::class, 'login'])->name('user.login');
 
-        Route::post('/stamp/break/start', [AttendanceRegisterController::class, 'stampBreakStart']);
+Route::get('/email/verify', function () {
+    return view('verify-email');
+})->middleware('auth')->name('verification.notice');
 
-        Route::post('/stamp/break/stop', [AttendanceRegisterController::class, 'stampBreakStop']);
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/attendance');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
-        Route::post('/stamp/leave', [AttendanceRegisterController::class, 'stampLeave']);
-
-        Route::get('/attendance/list', [UserAttendanceListController::class, 'list']);
-
-        Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('attendance.detail');
-
-        Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply']);
-    });
-
-
-
-
-    Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
-
-    Route::post('/admin/login', [AdministratorLoginController::class, 'authenticate']);
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', '認証メールを再送しました！');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
+Route::middleware('auth:web')->group(function () {
+    Route::get('/attendance', [AttendanceRegisterController::class, 'attendance']);
 
-    Route::prefix('admin')->middleware('auth:admin')->group(function () {
-        
+    Route::post('/stamp/attendance', [AttendanceRegisterController::class, 'stampAttendance']);
 
-        Route::post('/logout', [AdministratorLoginController::class, 'logout']);
+    Route::post('/stamp/break/start', [AttendanceRegisterController::class, 'stampBreakStart']);
+
+    Route::post('/stamp/break/stop', [AttendanceRegisterController::class, 'stampBreakStop']);
+
+    Route::post('/stamp/leave', [AttendanceRegisterController::class, 'stampLeave']);
+
+    Route::get('/attendance/list', [UserAttendanceListController::class, 'list']);
+
+    Route::get('/attendance/detail/{id}', [UserAttendanceDetailController::class, 'detail'])->name('attendance.detail');
+
+    Route::post('/attendance/correction/apply', [UserAttendanceDetailController::class, 'apply']);
+});
 
 
-        Route::get('/attendance/list', [AdministratorAttendanceListController::class, 'attendancelist']);
 
-        Route::get('/attendance/{id}', [AdministratorAttendanceDetailController::class, 'detail'])->name('admin.attendance.detail');
 
-        Route::post('/export/staff/{id}', [StaffAttendanceListController::class, 'export']);
+Route::get('/admin/login', [AdministratorLoginController::class, 'login']);
 
-        Route::get('/stamp_correction_request/list', [AdministratorApplicationController::class, 'application']);
+Route::post('/admin/login', [AdministratorLoginController::class, 'authenticate']);
 
-        Route::post('/approve', [ApprovalController::class, 'approveWork']);
 
-        Route::get('/staff/list', [StaffListController::class, 'list']);
 
-        Route::get('/attendance/staff/{id}', [StaffAttendanceListController::class, 'list']);
 
-        Route::post('/attendance/correction/apply', [AdministratorAttendanceDetailController::class, 'apply']);
-    });
 
-    Route::get('/stamp_correction_request/approve/{work_id}',[ApprovalController::class, 'approval']
-    )->middleware('auth.any:web,admin');
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    
 
-    Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application'])
-        ->middleware('auth.any:web,admin');
+    Route::post('/logout', [AdministratorLoginController::class, 'logout']);
+
+
+    Route::get('/attendance/list', [AdministratorAttendanceListController::class, 'attendancelist']);
+
+    Route::get('/attendance/{id}', [AdministratorAttendanceDetailController::class, 'detail'])->name('admin.attendance.detail');
+
+    Route::post('/export/staff/{id}', [StaffAttendanceListController::class, 'export']);
+
+    Route::get('/stamp_correction_request/list', [AdministratorApplicationController::class, 'application']);
+
+    Route::post('/approve', [ApprovalController::class, 'approveWork']);
+
+    Route::get('/staff/list', [StaffListController::class, 'list']);
+
+    Route::get('/attendance/staff/{id}', [StaffAttendanceListController::class, 'list']);
+
+    Route::post('/attendance/correction/apply', [AdministratorAttendanceDetailController::class, 'apply']);
+});
+
+Route::get('/stamp_correction_request/approve/{work_id}',[ApprovalController::class, 'approval']
+)->middleware('auth.any:web,admin');
+
+Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application'])
+    ->middleware('auth.any:web,admin');
 
 
 
