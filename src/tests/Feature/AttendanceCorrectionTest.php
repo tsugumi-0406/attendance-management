@@ -42,7 +42,7 @@ class AttendanceCorrectionTest extends TestCase
             'date' => $now->toDateString(),
             'attendance' => '09:00:00',
             'leaving' => '18:00:00',
-            'update' => 'no',
+            'update' => 'pending',
         ]);
 
         $work2 = \App\Models\Work::factory()->create([
@@ -50,29 +50,29 @@ class AttendanceCorrectionTest extends TestCase
             'date' => $now->addDay()->toDateString(),
             'attendance' => '09:00:00',
             'leaving' => '18:00:00',
-            'update' => 'no',
+            'update' => 'pending',
+        ]);
+
+        $unapproved_work1 = \App\Models\UnapprovedWork::factory()->create([
+            'work_id' => $work1->id,
+            'user_id' => $user1->id,
+            'date' => $now->toDateString(),
+            'attendance' => '09:00:00',
+            'leaving' => '18:00:00',
+            'remarks' => '修正申請テスト',
+        ]);
+
+        $unapproved_work2 = \App\Models\UnapprovedWork::factory()->create([
+            'work_id' => $work2->id,
+            'user_id' => $user2->id,
+            'date' => $now->addDay()->toDateString(),
+            'attendance' => '09:00:00',
+            'leaving' => '18:00:00',
+            'remarks' => '修正申請テスト2',
         ]);
 
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
-
-        $this->from('/attendance/detail/' . $work1->id)->post('/attendance/correction/apply', [
-            'work_id' => $work1->id,
-            'attendance' => '08:00:00',
-            'leaving' => '17:00:00',
-            'remarks' => '修正申請テスト',
-            'update' => 'pending',
-        ])
-        ->assertRedirect('/attendance/detail/' . $work1->id);
-
-        $this->from('/attendance/detail/' . $work2->id)->post('/attendance/correction/apply', [
-            'work_id' => $work2->id,
-            'attendance' => '08:00:00',
-            'leaving' => '17:00:00',
-            'remarks' => '修正申請テスト2',
-            'update' => 'pending',
-        ])
-        ->assertRedirect('/attendance/detail/' . $work2->id);
         
         $list = $this->get('/stamp_correction_request/list?tab=waiting');
         $list->assertStatus(200);
@@ -162,7 +162,7 @@ class AttendanceCorrectionTest extends TestCase
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
         
-        $list = $this->get('/admin/attendance/detail/' . $work->id);
+        $list = $this->get("/admin/attendance/{$work->id}");
         $list->assertStatus(200);
         $list->assertSee('テスト1');
         $list->assertSee($now->format('Y') . '年');

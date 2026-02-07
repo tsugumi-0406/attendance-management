@@ -58,7 +58,7 @@ class AdminLoginTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors([
-            'email' => 'メールアドレスまたはパスワードが違います',
+            'email' => 'ログイン情報が登録されていません',
         ]);
     }
 }

@@ -184,7 +184,7 @@ class UserListTest extends TestCase
 
         $response = $this->get('/admin/attendance/staff/' . $user->id);
         $response->assertStatus(200);
-        $response = $this->get('/attendance/detail/' . $work->id);
+        $response = $this->get("/admin/attendance/{$work->id}");
         $response->assertStatus(200);
         $response->assertSee('テスト');
         
