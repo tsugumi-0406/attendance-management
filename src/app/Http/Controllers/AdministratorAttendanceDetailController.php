@@ -13,6 +13,7 @@ use App\Http\Requests\UserAttendanceDetailRequest;
 
 class AdministratorAttendanceDetailController extends Controller
 {
+    // 勤怠詳細画面（管理者）を表示する
     public function detail($id)
     {
         $work = Work::where('id', $id)
@@ -29,7 +30,7 @@ class AdministratorAttendanceDetailController extends Controller
     }
 
 
-
+    // 勤怠を修正する
     public function apply(UserAttendanceDetailRequest $request)
     {
         $work = Work::findOrFail($request->work_id);

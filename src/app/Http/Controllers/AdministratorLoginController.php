@@ -10,14 +10,15 @@ use App\Http\Requests\AdminLoginRequest;
 
 class AdministratorLoginController extends Controller
 {
+    // ログイン画面を表示する
     public function login(Request $request)
     {
         return view('administrator_login');
     }
 
+    // ログイン(管理者)する
     public function authenticate(AdminLoginRequest $request)
     {
-        // ここで既にバリデーション済み
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('admin')->attempt($credentials)) {
@@ -30,6 +31,7 @@ class AdministratorLoginController extends Controller
             ->onlyInput('email');
     }
 
+    // ログアウト(管理者)する
     public function logout(\Illuminate\Http\Request $request)
     {
         Auth::guard('admin')->logout();

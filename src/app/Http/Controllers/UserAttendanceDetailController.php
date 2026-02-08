@@ -14,6 +14,7 @@ use App\Http\Requests\UserAttendanceDetailRequest;
 
 class UserAttendanceDetailController extends Controller
 {
+    // 勤怠詳細画面（一般ユーザー）の表示
     public function detail($id)
     {
         $work = Work::where('id', $id)
@@ -36,6 +37,7 @@ class UserAttendanceDetailController extends Controller
         return view('user_attendance_detail', compact('work', 'user', 'breaks', 'unapproved_work', 'unapproved_breaks'));
     }
 
+    // 勤怠修正申請を出す
     public function apply(UserAttendanceDetailRequest $request)
     {
         $work = Work::findOrFail($request->work_id);
@@ -90,10 +92,6 @@ class UserAttendanceDetailController extends Controller
         }
 
         $from = $request->input('from');
-
-        if ($from === 'admin') {
-            return redirect('/admin/attendance/detail/' . $work_id);
-        }
 
         return redirect('/attendance/detail/' . $work_id);
     }

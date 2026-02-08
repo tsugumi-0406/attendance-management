@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserAttendanceListController extends Controller
 {
+    // 勤怠一覧画面（一般ユーザー）の表示
     public function list(Request $request)
     {
         $user = Auth::user();

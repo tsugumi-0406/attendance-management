@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdministratorAttendanceListController extends Controller
 {
+    // 勤怠一覧画面（管理者））を表示
     public function attendancelist(Request $request)
     {
         $now = CarbonImmutable::now();

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Date;
 
 class StaffAttendanceListController extends Controller
 {
+    // スタッフ別勤怠一覧画面（管理者）を表示する
     public function list(Request $request, $id)
     {
         $user = User::where('id', $id)
@@ -82,6 +83,7 @@ class StaffAttendanceListController extends Controller
         return view('staff_attendance_list', compact('works', 'breaks', 'dd', 'user', 'base_date', 'link_day_before', 'link_day_after', 'break_date'));
     }
 
+    // 該当ユーザーの出勤記録をCSV出力する
     public function export(Request $request, $id)
     {
         $user_id = $id;

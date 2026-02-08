@@ -31,9 +31,10 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('web')->group(function () {
-Route::get('/register', [RegisterController::class, 'register'])->name('register');
-Route::post('/register', [RegisterController::class, 'store']);
+    Route::get('/register', [RegisterController::class, 'register'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store']);
 });
+
 Route::get('/login', [UserLoginController::class, 'login'])->name('user.login');
 
 Route::get('/email/verify', function () {
@@ -82,25 +83,23 @@ Route::post('/admin/login', [AdministratorLoginController::class, 'authenticate'
 
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
     
-
     Route::post('/logout', [AdministratorLoginController::class, 'logout']);
-
 
     Route::get('/attendance/list', [AdministratorAttendanceListController::class, 'attendancelist']);
 
     Route::get('/attendance/{id}', [AdministratorAttendanceDetailController::class, 'detail'])->name('admin.attendance.detail');
 
-    Route::post('/export/staff/{id}', [StaffAttendanceListController::class, 'export']);
-
-    Route::get('/stamp_correction_request/list', [AdministratorApplicationController::class, 'application']);
-
-    Route::post('/approve', [ApprovalController::class, 'approveWork']);
+    Route::post('/attendance/correction/apply', [AdministratorAttendanceDetailController::class, 'apply']);
 
     Route::get('/staff/list', [StaffListController::class, 'list']);
 
     Route::get('/attendance/staff/{id}', [StaffAttendanceListController::class, 'list']);
 
-    Route::post('/attendance/correction/apply', [AdministratorAttendanceDetailController::class, 'apply']);
+    Route::post('/export/staff/{id}', [StaffAttendanceListController::class, 'export']);
+
+    // Route::get('/stamp_correction_request/list', [AdministratorApplicationController::class, 'application']);
+
+    Route::post('/approve', [ApprovalController::class, 'approveWork']);
 });
 
 Route::get('/stamp_correction_request/approve/{work_id}',[ApprovalController::class, 'approval']
