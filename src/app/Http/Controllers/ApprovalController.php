@@ -35,7 +35,7 @@ class ApprovalController extends Controller
         return view('approval', compact('work', 'user', 'breaks', 'unapproved_work', 'unapproved_breaks'));
     }
 
-    // 承認する
+    // 申請修正を承認する
     public function approveWork(Request $request)
     {
         $work_id = $request->work_id;

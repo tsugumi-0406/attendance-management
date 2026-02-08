@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserApplicationController extends Controller
 {
+    // 申請一覧画面を表示する
     public function application(Request $request)
     {
         $tab = $request->query('tab', 'waiting');
