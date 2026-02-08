@@ -1,0 +1,22 @@
+.main-sentence {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.main-sente__text {
+    font-weight: 700;
+}
+
+.main-form__button {
+    font-weight: 700;
+    margin: 30px auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.main-sentence__link {
+    color: #0073CC;
+    margin: 30px auto;
+    border: none;
+    background-color: #FFFFFF;
+}
