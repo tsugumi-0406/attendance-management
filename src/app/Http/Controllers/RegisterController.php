@@ -9,19 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
+    // 会員登録画面の表示
     public function register(Request $request)
     {
         return view('register');
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|confirmed',
-        ]);
 
+    public function store(RegisterRequest $request)
+    {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
