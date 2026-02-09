@@ -1,0 +1,3 @@
+
+# ignore mysql volume
+/docker/mysql/data/
