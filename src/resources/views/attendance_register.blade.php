@@ -13,7 +13,7 @@
 
 <body>
     <header class="header">
-        <img src="{{ asset('storage/COACHTECHヘッダーロゴ.png') }}" alt="アプリロゴ" class="header__logo">
+        <img src="{{ asset('COACHTECHヘッダーロゴ.png') }}" alt="アプリロゴ" class="header__logo">
         <div class="header-inner">
             @if($status === 'finished')
                 <a class="header-inner__link" href="/attendance/list">今月の出勤一覧</a>

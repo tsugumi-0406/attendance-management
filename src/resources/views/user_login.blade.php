@@ -13,7 +13,7 @@
 
 <body>
     <header class="header">
-        <img src="{{ asset('storage/COACHTECHヘッダーロゴ.png') }}" alt="アプリロゴ" class="header__logo">
+        <img src="{{ asset('COACHTECHヘッダーロゴ.png') }}" alt="アプリロゴ" class="header__logo">
     </header>
 
     <main>

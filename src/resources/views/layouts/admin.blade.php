@@ -13,7 +13,7 @@
 
 <body>
     <header class="header">
-        <img src="{{ asset('storage/COACHTECHヘッダーロゴ.png') }}" alt="アプリロゴ" class="header__logo">
+        <img src="{{ asset('COACHTECHヘッダーロゴ.png') }}" alt="アプリロゴ" class="header__logo">
         <div class="header-inner">
             <a class="header-inner__link" href="/admin/attendance/list">勤怠一覧</a>
             <a class="header-inner__link" href="/admin/staff/list">スタッフ一覧</a>
