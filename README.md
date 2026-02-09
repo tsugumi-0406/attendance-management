@@ -4,7 +4,8 @@
 
 Dockerビルド
 1. git clone https://github.com/tsugumi-0406/attendance-management<br>
-2. docker-compose up -d --build
+2. cd attendance-management<br>
+3. docker-compose up -d --build
 
 Laravel 環境構築
 1. docker-compose exec php bash
@@ -27,6 +28,15 @@ Laravel 環境構築
 ・Laravel 8.83.29<br>
 ・MySQL 8.0.26<br>
 ・nginx:1.21.1
+
+## その他
+※ 環境変数を変更した場合（APP_URL 等）は、以下を実行してください。<br>
+php artisan config:clear<br>
+php artisan cache:clear<br>
+
+登録されている管理者の情報
+メールアドレス：aaa@gmail.com
+パスワード：password
 
 
 ## ER図
