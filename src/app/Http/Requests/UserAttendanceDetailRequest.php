@@ -27,7 +27,7 @@ class UserAttendanceDetailRequest extends FormRequest
             'attendance' => ['required', 'before:leaving'],
             'leaving' => ['nullable', 'after:attendance'],
             'break_requests.*.start' => ['nullable', 'after:attendance', 'before:leaving'],
-            'break_requests.*.stop' => ['nullable', 'before:leaving'],
+            'break_requests.*.stop' => ['nullable', 'after:attendance', 'before:leaving'],
             'remarks' => ['required', 'string'],
         ];
     }
@@ -41,6 +41,7 @@ class UserAttendanceDetailRequest extends FormRequest
             'break_requests.*.start.after' => '休憩時間が不適切な値です',
             'break_requests.*.start.before' => '休憩時間が不適切な値です',
             'break_requests.*.stop.before' => '休憩時間もしくは退勤時間が不適切な値です',
+            'break_requests.*.stop.after' => '休憩時間が不適切な値です',
             'remarks.required' => '備考を記入してください'
         ];
     }

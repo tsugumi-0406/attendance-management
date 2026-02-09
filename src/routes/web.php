@@ -97,16 +97,18 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
     Route::post('/export/staff/{id}', [StaffAttendanceListController::class, 'export']);
 
-    // Route::get('/stamp_correction_request/list', [AdministratorApplicationController::class, 'application']);
-
     Route::post('/approve', [ApprovalController::class, 'approveWork']);
 });
 
 Route::get('/stamp_correction_request/approve/{work_id}',[ApprovalController::class, 'approval']
-)->middleware('auth.any:web,admin');
+)->middleware('auth:admin');
 
-Route::get('/stamp_correction_request/list', [UserApplicationController::class, 'application'])
-    ->middleware('auth.any:web,admin');
+Route::get('/stamp_correction_request/list', function () {
+    if (Auth::guard('admin')->check()) {
+        return app(AdminApplicationController::class)->application();
+    }
+    return app(UserApplicationController::class)->application();
+})->middleware('auth');
 
 
 
