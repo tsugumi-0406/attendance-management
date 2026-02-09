@@ -18,9 +18,9 @@ class CreateUnapprovedWorksTable extends Migration
             $table->foreignId('work_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->date('date');
-            $table->time('attendance')->nullable();
+            $table->time('attendance');
             $table->time('leaving')->nullable();
-            $table->text('remarks')->nullable();
+            $table->text('remarks');
             $table->timestamps();
         });
     }
