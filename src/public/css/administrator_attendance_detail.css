@@ -64,6 +64,14 @@
     text-align: center;
 }
 
+.form-data__attendance-pending {
+    font-size: 16px;
+    height: 30px;
+    width: 100px;
+    margin: auto 0 auto 125px;
+    text-align: center;
+}
+
 .form-data__mark {
     font-size: 16px;
     margin: auto 0px auto 50px;
@@ -78,12 +86,28 @@
     text-align: center;
 }
 
+.form-data__leaving-pending {
+    font-size: 16px;
+    height: 30px;
+    width: 100px;
+    margin: auto 0 auto 45px;
+    text-align: center;
+}
+
 .form-data__break-start {
     font-size: 16px;
     height: 30px;
     width: 100px;
     margin: auto 0 auto 190px;
     border: solid 1px #E1E1E1;
+    text-align: center;
+}
+
+.form-data__break-start-pending {
+    font-size: 16px;
+    height: 30px;
+    width: 100px;
+    margin: auto 0 auto 170px;
     text-align: center;
 }
 
@@ -96,12 +120,36 @@
     text-align: center;
 }
 
+.form-data__break-end-pending {
+    font-size: 16px;
+    height: 30px;
+    width: 100px;
+    margin: auto 0 auto 45px;
+    text-align: center;
+}
+
 .form-data__remarks {
     font-size: 16px;
     height: 60px;
     width: 310px;
     margin: auto 0 auto 190px;
     border: solid 1px #E1E1E1;
+}
+
+.form-data__remarks-pending {
+    font-size: 16px;
+    height: 60px;
+    width: 310px;
+    margin: auto 0 auto 190px;
+}
+
+.error{
+    color: red;
+}
+
+.pending-comment {
+    color: red;
+    text-align: right;
 }
 
 .form-button {

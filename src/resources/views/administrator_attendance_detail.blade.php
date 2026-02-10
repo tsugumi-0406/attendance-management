@@ -31,7 +31,6 @@
                     <p class="form-data__date">{{ $work_day->format('n'); }}月{{ $work_day->format('j'); }}日</p>
                 </div>
 
-
                 <div class="form-line">
                     @php
                         $work_status = $work->update;
@@ -40,58 +39,107 @@
                     @endphp
 
 
-                    
-                    @php
-                        $work_id = $work->id;
+                    @if($work_status == 'pending')
+                        @php
+                            $unapproved_work_attendance = Carbon\Carbon::parse($unapproved_work->attendance)->format('H:i');
 
-                        $work_attendance = Carbon\Carbon::parse($work->attendance)->format('H:i');
+                            if($unapproved_work->leaving == null){
+                                $unapproved_work_leaving = '--:--';
+                            }else{
+                                $unapproved_work_leaving = Carbon\Carbon::parse($unapproved_work->leaving)->format('H:i');
+                            }
 
-                        if($work->leaving == null){
-                            $work_leaving = '--:--';
-                        }else{
-                            $work_leaving = Carbon\Carbon::parse($work->leaving)->format('H:i');
-                        }
+                            if($unapproved_work->remarks == null){
+                                $unapproved_work_remarks = '';
+                            }else{
+                                $unapproved_work_remarks = $unapproved_work->remarks;
+                            }
+                        @endphp
+                        <p class="form-item">出勤・退勤</p>
+                        <p class="form-data__attendance-pending">{{ $unapproved_work_attendance }}</p>
+                        <p class="form-data__mark">～</p>
+                        <p class="form-data__leaving-pending">{{ $unapproved_work_leaving }}</p>
+                    @else
+                        @php
+                            $work_id = $work->id;
 
-                        if($work->remarks == null){
-                            $work_remarks = '';
-                        }else{
-                            $work_remarks = $work->remarks;
-                        }
-                    @endphp
-                    <input type="text" hidden value="{{ $work_id }}" name="work_id">
-                    <p class="form-item">出勤・退勤</p>
-                    <input type="text" class="form-data__attendance" value="{{ $work_attendance }}" name="attendance">
-                    <p class="form-data__mark">～</p>
-                    <input type="text" class="form-data__leaving" value="{{ $work_leaving }}" name="leaving">
+                            $work_attendance = Carbon\Carbon::parse($work->attendance)->format('H:i');
+
+                            if($work->leaving == null){
+                                $work_leaving = '--:--';
+                            }else{
+                                $work_leaving = Carbon\Carbon::parse($work->leaving)->format('H:i');
+                            }
+
+                            if($work->remarks == null){
+                                $work_remarks = '';
+                            }else{
+                                $work_remarks = $work->remarks;
+                            }
+                        @endphp
+                        <input type="text" hidden value="{{ $work_id }}" name="work_id">
+                        <p class="form-item">出勤・退勤</p>
+                        <input type="text" class="form-data__attendance" value="{{ $work_attendance }}" name="attendance">
+                        <p class="form-data__mark">～</p>
+                        <input type="text" class="form-data__leaving" value="{{ $work_leaving }}" name="leaving">
+                    @endif
                 </div>
 
 
-                
-                @foreach($breaks as $index => $break)
-                    <div class="form-line">
-                        @php
-                            $break_id = $break->id;
+                @if($work_status == 'pending')
+                    @foreach($unapproved_breaks as $unapproved_break)
+                        <div class="form-line">
+                            @php
+                                $unapproved_break_id = $unapproved_break->id;
 
-                            $break_start = Carbon\Carbon::parse($break->start)->format('H:i');
+                                $unapproved_break_start = Carbon\Carbon::parse($unapproved_break->start)->format('H:i');
 
-                            if($break->stop == null){
-                                $break_stop = '--:--';
-                            }else{
-                                $break_stop = Carbon\Carbon::parse($break->stop)->format('H:i');
-                            }    
-                        @endphp
-                        <input type="text" hidden value="{{ $break_id }}" name="break_requests[{{ $index }}][break_id]">
-                        <p class="form-item">休憩</p>
-                        <input type="text" class="form-data__break-start" value="{{ $break_start }}" name="break_requests[{{ $index }}][start]">
-                        <p class="form-data__mark">～</p>
-                        <input type="text" class="form-data__break-end" value="{{ $break_stop }}" name="break_requests[{{ $index }}][stop]">
-                    </div>
-                @endforeach
+                                if($unapproved_break->stop == null){
+                                    $unapproved_break_stop = '--:--';
+                                }else{
+                                    $unapproved_break_stop = Carbon\Carbon::parse($unapproved_break->stop)->format('H:i');
+                                }    
+                            @endphp
+                            <p class="form-item">
+                                休憩{{ $loop->iteration === 1 ? '' : $loop->iteration }}
+                            </p>
+                            <p class="form-data__break-start-pending">{{ $unapproved_break_start }}</p>
+                            <p class="form-data__mark">～</p>
+                            <p class="form-data__break-end-pending">{{ $unapproved_break_stop }}</p>
+                        </div>
+                    @endforeach       
+                @else
+                    @foreach($breaks as $index => $break)
+                        <div class="form-line">
+                            @php
+                                $break_id = $break->id;
+
+                                $break_start = Carbon\Carbon::parse($break->start)->format('H:i');
+
+                                if($break->stop == null){
+                                    $break_stop = '--:--';
+                                }else{
+                                    $break_stop = Carbon\Carbon::parse($break->stop)->format('H:i');
+                                }    
+                            @endphp
+                            <input type="text" hidden value="{{ $break_id }}" name="break_requests[{{ $index }}][break_id]">
+                            <p class="form-item">休憩</p>
+                            <input type="text" class="form-data__break-start" value="{{ $break_start }}" name="break_requests[{{ $index }}][start]">
+                            <p class="form-data__mark">～</p>
+                            <input type="text" class="form-data__break-end" value="{{ $break_stop }}" name="break_requests[{{ $index }}][stop]">
+                        </div>
+                    @endforeach
+                @endif
 
 
                 <div class="form-line">
                     <p class="form-item">備考</p>
-                    <textarea class="form-data__remarks" name="remarks">{{ $work_remarks }}</textarea>
+                    @if($work_status == 'pending')
+                        <p class="form-data__remarks-pending" name="remarks">{{ $unapproved_work_remarks }}
+                        </p>
+                     @else
+                        <textarea class="form-data__remarks" name="remarks">{{ $work_remarks }}</textarea>
+                    @endif
                 </div>
             </div>
 
@@ -127,7 +175,12 @@
                         {{ $errors->first('remarks') }}
                     @enderror
             </div>
-            <input type="submit" value="修正" class="form-button">
+
+            @if($work_status == 'pending')
+                <p class="pending-comment">*承認待ちのため修正はできません。</p>
+            @else
+                <input type="submit" value="修正" class="form-button">
+            @endif
         </form>
     </div>
 @endsection

@@ -106,7 +106,9 @@
                                     $unapproved_break_stop = Carbon\Carbon::parse($unapproved_break->stop)->format('H:i');
                                 }    
                             @endphp
-                            <p class="form-item">休憩</p>
+                            <p class="form-item">
+                                休憩{{ $loop->iteration === 1 ? '' : $loop->iteration }}
+                            </p>
                             <p class="form-data__break-start-pending">{{ $unapproved_break_start }}</p>
                             <p class="form-data__mark">～</p>
                             <p class="form-data__break-end-pending">{{ $unapproved_break_stop }}</p>

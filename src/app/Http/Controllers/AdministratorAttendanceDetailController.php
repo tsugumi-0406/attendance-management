@@ -8,6 +8,8 @@ use App\Models\BreakTime;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use App\Models\UnapprovedWork;
+use App\Models\UnapprovedBreak;
 use App\Http\Requests\UserAttendanceDetailRequest;
 
 
@@ -25,8 +27,15 @@ class AdministratorAttendanceDetailController extends Controller
         $breaks = BreakTime::where('user_id', $user->id)
             ->where('date', $work->date)
             ->get();
+        
+        $unapproved_work = UnapprovedWork::where('work_id', $work->user_id)
+                ->first();
 
-        return view('administrator_attendance_detail',compact('work', 'user', 'breaks'));
+        $unapproved_breaks = UnapprovedBreak::where('user_id', $user->id)
+            ->where('date', $work->date)
+            ->get();
+
+        return view('administrator_attendance_detail',compact('work', 'user', 'breaks', 'unapproved_work', 'unapproved_breaks'));
     }
 
 
