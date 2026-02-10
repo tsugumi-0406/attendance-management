@@ -123,7 +123,9 @@
                                 }    
                             @endphp
                             <input type="text" hidden value="{{ $break_id }}" name="break_requests[{{ $index }}][break_id]">
-                            <p class="form-item">休憩</p>
+                            <p class="form-item">
+                                休憩{{ $loop->iteration === 1 ? '' : $loop->iteration }}
+                            </p>
                             <input type="text" class="form-data__break-start" value="{{ $break_start }}" name="break_requests[{{ $index }}][start]">
                             <p class="form-data__mark">～</p>
                             <input type="text" class="form-data__break-end" value="{{ $break_stop }}" name="break_requests[{{ $index }}][stop]">

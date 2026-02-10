@@ -100,7 +100,9 @@
                                 }    
                             @endphp
                             <input type="hidden" value="{{ $unapproved_break_id }}" name="unapproved_break_requests[{{ $index }}][unapproved_break_id]" readonly>
-                            <p class="form-item">休憩</p>
+                            <p class="form-item">
+                                休憩{{ $loop->iteration === 1 ? '' : $loop->iteration }}
+                            </p>
                             <p class="form-data__break-start">{{ $unapproved_break_start }}</p>
                             <p class="form-data__mark">～</p>
                             <p class="form-data__break-end">{{ $unapproved_break_stop }}</p>
@@ -118,7 +120,9 @@
                                     $break_stop = Carbon\Carbon::parse($break->stop)->format('H:i');
                                 }    
                             @endphp
-                            <p class="form-item">休憩</p>
+                            <p class="form-item">
+                                休憩{{ $loop->iteration === 1 ? '' : $loop->iteration }}
+                            </p>
                             <p class="form-data__break-start">{{ $break_start }}</p>
                             <p class="form-data__mark">～</p>
                             <p class="form-data__break-end">{{ $break_stop }}</p>
