@@ -14,7 +14,7 @@ use App\Http\Controllers\StaffListController;
 use App\Http\Controllers\StaffAttendanceListController;
 use App\Http\Controllers\AdministratorApplicationController;
 use App\Http\Controllers\ApprovalController;
-use Illuminate\Foundation\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -103,12 +103,12 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 Route::get('/stamp_correction_request/approve/{work_id}',[ApprovalController::class, 'approval']
 )->middleware('auth:admin');
 
-Route::get('/stamp_correction_request/list', function () {
+Route::get('/stamp_correction_request/list', function (Request $request) {
     if (Auth::guard('admin')->check()) {
-        return app(AdminApplicationController::class)->application();
+        return app(AdministratorApplicationController::class)->application($request);
     }
-    return app(UserApplicationController::class)->application();
-})->middleware('auth');
+    return app(UserApplicationController::class)->application($request);
+})->middleware('auth.any:web,admin');
 
 
 
