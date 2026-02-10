@@ -45,7 +45,7 @@ class BreakTest extends TestCase
 
         $this->from('/attendance')->post('/stamp/break/start');
 
-        $this->assertDatabaseHas('break_times', [
+        $this->assertDatabaseHas('breaks', [
             'user_id' => $user->id,
             'date' => $now->toDateString(),
             'start' => $now->format('H:i:s'),
@@ -114,7 +114,7 @@ class BreakTest extends TestCase
 
         $this->from('/attendance')->post('/stamp/break/stop');
 
-        $this->assertDatabaseMissing('break_times', [
+        $this->assertDatabaseMissing('breaks', [
             'user_id' => $user->id,
             'date' => $now->toDateString(),
             'stop' => null,

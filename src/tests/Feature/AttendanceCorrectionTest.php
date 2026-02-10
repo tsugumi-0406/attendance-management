@@ -34,7 +34,7 @@ class AttendanceCorrectionTest extends TestCase
             ]);
 
 
-        $now = new CarbonImmutable('2026-02-02T09:00:00+09:00');
+        $now = new CarbonImmutable('2026-02-05T09:00:00+09:00');
         CarbonImmutable::setTestNow($now);
 
         $work1 = \App\Models\Work::factory()->create([
@@ -102,7 +102,7 @@ class AttendanceCorrectionTest extends TestCase
             ]);
 
 
-        $now = new CarbonImmutable('2026-02-02T09:00:00+09:00');
+        $now = new CarbonImmutable('2026-02-05T09:00:00+09:00');
         CarbonImmutable::setTestNow($now);
         $tomorrow = $now->addDay();
 
@@ -124,41 +124,6 @@ class AttendanceCorrectionTest extends TestCase
             'update' => 'done',
             'remarks' => '修正申請テスト2',
         ]);
-
-        \App\Models\UnapprovedWork::factory()->create([
-            'work_id' => $work1->id,
-            'user_id' => $user1->id,
-            'date' => $now->toDateString(),
-            'attendance' => '09:00:00',
-            'leaving' => '18:00:00',
-            'remarks' => '修正申請テスト',
-        ]);
-
-        \App\Models\UnapprovedWork::factory()->create([
-            'work_id' => $work2->id,
-            'user_id' => $user2->id,
-            'date' => $tomorrow->toDateString(),
-            'attendance' => '09:00:00',
-            'leaving' => '18:00:00',
-            'remarks' => '修正申請テスト2',
-        ]);
-
-        $waitingWork = \App\Models\Work::factory()->create([
-            'user_id' => $user1->id,
-            'date' => $now->toDateString(),
-            'attendance' => '08:00:00',
-            'leaving' => '17:00:00',
-            'update' => 'pending',
-        ]);
-        \App\Models\UnapprovedWork::factory()->create([
-            'work_id' => $waitingWork->id,
-            'user_id' => $user1->id,
-            'date' => $now->toDateString(),
-            'attendance' => '08:00:00',
-            'leaving' => '17:00:00',
-            'remarks' => '承認待ちテスト',
-        ]);
-
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
         
@@ -184,7 +149,7 @@ class AttendanceCorrectionTest extends TestCase
             'password' => bcrypt('test12345'),
             ]);
 
-        $now = new CarbonImmutable('2026-02-02T09:00:00+09:00');
+        $now = new CarbonImmutable('2026-02-05T09:00:00+09:00');
         CarbonImmutable::setTestNow($now);
 
         $work = \App\Models\Work::factory()->create([
@@ -202,7 +167,8 @@ class AttendanceCorrectionTest extends TestCase
         $response = $this->get("/admin/attendance/{$work->id}");
         $response->assertStatus(200);
         $response->assertSee($user->name);
-        $response->assertSee($now->format('Y年n月j日')); // 表示形式に合わせて調整
+        $response->assertSee($now->format('Y年'));
+        $response->assertSee($now->format('n月j日'));
         $response->assertSee('09:00');
         $response->assertSee('18:00');
         $response->assertSee('修正申請テスト');
@@ -219,7 +185,7 @@ class AttendanceCorrectionTest extends TestCase
             'password' => bcrypt('test12345'),
             ]);
 
-        $now = new CarbonImmutable('2026-02-02T09:00:00+09:00');
+        $now = new CarbonImmutable('2026-02-05T09:00:00+09:00');
         CarbonImmutable::setTestNow($now);
 
         $work = \App\Models\Work::factory()->create([

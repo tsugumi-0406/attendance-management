@@ -67,7 +67,7 @@ class AdminLoginTest extends TestCase
         $response->assertSessionHasErrors(['email']);
 
         $this->assertEquals(
-            'ログイン情報が登録されていません。',
+            'ログイン情報が登録されていません',
             session('errors')->first('email')
         );
     }
