@@ -10,7 +10,7 @@
     <div class="main__inner">
         <div class="main-title">
             <div class="main-title__div">a</div>
-            <h1 class="main-title__sentence"> {{ $user->name }}さんの勤怠一覧</h1>
+            <h1 class="main-title__sentence"> {{ $user->name }}さんの勤怠</h1>
         </div>
         <div class="month">
             <div class="month-before">
