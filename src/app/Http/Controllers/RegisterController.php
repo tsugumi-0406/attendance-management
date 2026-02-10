@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class RegisterController extends Controller
 {
     // 会員登録画面の表示
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         return view('register');
     }

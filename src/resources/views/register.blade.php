@@ -23,7 +23,7 @@
             </h1>
             <form action="/register" class="main-form" method="post" novalidate>
             @csrf
-                <label for="" class="main-form__label">ユーザー名</label>
+                <label for="" class="main-form__label">名前</label>
                 <input type="text" class="main-form__input" name="name">
                 <div class="main-form__error">
                     @error('name')
@@ -44,7 +44,7 @@
                         {{ $errors->first('password') }}
                     @enderror
                 </div>
-                <label class="main-form__label">確認用パスワード</label>
+                <label class="main-form__label">パスワード確認</label>
                 <input type="password" class="main-form__input" name="password_confirmation">
                 <div class="main-form__error">
                     @error('password_confirmation')
