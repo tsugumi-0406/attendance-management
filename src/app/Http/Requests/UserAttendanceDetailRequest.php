@@ -36,8 +36,8 @@ class UserAttendanceDetailRequest extends FormRequest
     {
         return [
             'attendance.required' => '出勤時間を入力してください',
-            'attendance.before' => '出勤時間が不適切な値です',
-            'leaving.after' => '退勤時間が不適切な値です',
+            'attendance.before' => '出勤時間もしくは退勤時間が不適切な値です',
+            'leaving.after' => '出勤時間もしくは退勤時間が不適切な値です',
             'break_requests.*.start.after' => '休憩時間が不適切な値です',
             'break_requests.*.start.before' => '休憩時間が不適切な値です',
             'break_requests.*.stop.before' => '休憩時間もしくは退勤時間が不適切な値です',

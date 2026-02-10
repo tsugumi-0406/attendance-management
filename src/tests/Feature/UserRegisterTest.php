@@ -87,10 +87,10 @@ class UserRegisterTest extends TestCase
             'password_confirmation' => 'test12345',
         ]);
 
-        $response->assertSessionHasErrors(['password']);
+        $response->assertSessionHasErrors(['password_confirmation']);
         $this->assertEquals(
             'パスワードと一致しません',
-            session('errors')->first('password')
+            session('errors')->first('password_confirmation')
         );
     }
 
