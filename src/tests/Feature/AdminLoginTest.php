@@ -13,6 +13,7 @@ class AdminLoginTest extends TestCase
      *
      * @return void
      */
+
     // メールアドレスが入力されていない場合、バリデーションメッセージが表示される
     public function test_login_admin_email_required_validation()
     {
@@ -25,9 +26,12 @@ class AdminLoginTest extends TestCase
             'password_confirmation' => 'test12345',
         ]);
 
-        $response->assertSessionHasErrors([
-            'email' => 'メールアドレスを入力してください',
-        ]);
+        $response->assertSessionHasErrors(['email']);
+
+        $this->assertEquals(
+            'メールアドレスを入力してください',
+            session('errors')->first('email')
+        );
     }
 
     // パスワードが入力されていない場合、バリデーションメッセージが表示される
@@ -41,9 +45,12 @@ class AdminLoginTest extends TestCase
             'password' => '',
         ]);
 
-        $response->assertSessionHasErrors([
-            'password' => 'パスワードを入力してください',
-        ]);
+        $response->assertSessionHasErrors(['password']);
+
+        $this->assertEquals(
+            'パスワードを入力してください',
+            session('errors')->first('password')
+        );
     }
 
     // 入力情報が間違っている場合、バリデーションメッセージが表示される
@@ -57,8 +64,11 @@ class AdminLoginTest extends TestCase
             'password' => 'test1234',
         ]);
 
-        $response->assertSessionHasErrors([
-            'email' => 'ログイン情報が登録されていません',
-        ]);
+        $response->assertSessionHasErrors(['email']);
+
+        $this->assertEquals(
+            'ログイン情報が登録されていません。',
+            session('errors')->first('email')
+        );
     }
 }

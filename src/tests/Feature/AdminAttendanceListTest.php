@@ -86,21 +86,45 @@ class AdminAttendanceListTest extends TestCase
         CarbonImmutable::setTestNow();
     }
 
-    // 「前日」を押下した時に前の日の勤怠情報が表示される
-    public function test_attendance_list_before_day_view()
-    {
-        $now = new CarbonImmutable('2026-02-02T09:00:00+09:00');
-        CarbonImmutable::setTestNow($now);
+        // 「前日」を押下した時に前の日の勤怠情報が表示される
+        public function test_attendance_list_before_day_view()
+        {
+            $now = new CarbonImmutable('2026-02-02T09:00:00+09:00');
+            CarbonImmutable::setTestNow($now);
 
-        $admin = \App\Models\Admin::factory()->create();
-        $this->actingAs($admin, 'admin');
+            $admin = \App\Models\Admin::factory()->create();
+            $this->actingAs($admin, 'admin');
 
-        $link_day_before = Carbon::parse($now)->subDay()->format('Y-m-d');
+            $beforeDay = $now->subDay()->toDateString();
+            $today = $now->toDateString();
 
-        $response = $this->get('/admin/attendance/list?day=' .  $link_day_before);
-        $response->assertSee($now->subDay()->format('Y/m/d'));
-        CarbonImmutable::setTestNow();
-    }
+            $user = \App\Models\User::factory()->create();
+
+            \App\Models\Work::factory()->create([
+                'user_id' => $user->id,
+                'date' => $beforeDay,
+                'attendance' => '08:00:00',
+                'leaving' => '17:00:00',
+            ]);
+
+            \App\Models\Work::factory()->create([
+                'user_id' => $user->id,
+                'date' => $today,
+                'attendance' => '09:00:00',
+                'leaving' => '18:00:00',
+            ]);
+
+            $response = $this->get('/admin/attendance/list?day=' . $beforeDay);
+            $response->assertStatus(200);
+
+            $response->assertSee($now->subDay()->format('Y/m/d'));
+            $response->assertSee('08:00');
+            $response->assertSee('17:00');
+            $response->assertDontSee('09:00');
+            $response->assertDontSee('18:00');
+
+            CarbonImmutable::setTestNow();
+        }
 
     // 「「翌日」を押下した時に次の日の勤怠情報が表示される
     public function test_attendance_list_after_day_view()
@@ -111,10 +135,34 @@ class AdminAttendanceListTest extends TestCase
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
 
-        $link_day_after = Carbon::parse($now)->addDay()->format('Y-m-d');
+        $afterDay = $now->addDay()->toDateString();
+        $today    = $now->toDateString();
 
-        $response = $this->get('/admin/attendance/list?day=' .  $link_day_after);
+        $user = \App\Models\User::factory()->create();
+
+        \App\Models\Work::factory()->create([
+            'user_id'    => $user->id,
+            'date'       => $afterDay,
+            'attendance' => '10:00:00',
+            'leaving'    => '19:00:00',
+        ]);
+
+        \App\Models\Work::factory()->create([
+            'user_id'    => $user->id,
+            'date'       => $today,
+            'attendance' => '09:00:00',
+            'leaving'    => '18:00:00',
+        ]);
+
+        $response = $this->get('/admin/attendance/list?day=' . $afterDay);
+        $response->assertStatus(200);
+
         $response->assertSee($now->addDay()->format('Y/m/d'));
+        $response->assertSee('10:00');
+        $response->assertSee('19:00');
+        $response->assertDontSee('09:00');
+        $response->assertDontSee('18:00');
+
         CarbonImmutable::setTestNow();
     }
 }

@@ -16,6 +16,7 @@ class DayTimeTest extends TestCase
      *
      * @return void
      */
+    
     // 現在の日時情報がUIと同じ形式で出力されている
     public function test_day_time_view()
     {

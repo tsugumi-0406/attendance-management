@@ -25,31 +25,36 @@ class AttendanceListTest extends TestCase
             'password' => bcrypt('test12345'),
             ]);
 
-        $now_attendance = new CarbonImmutable('2026-02-02T01:00:00+09:00');
-        CarbonImmutable::setTestNow($now_attendance);
-        $date = $now_attendance->toDateString();
-        $time_attendance = $now_attendance->toTimeString();
+        $work1Date = '2026-02-02';
+        $work2Date = '2026-02-03';
 
-        $now_leaving = new CarbonImmutable('2026-02-02T09:00:00+09:00');
-        CarbonImmutable::setTestNow($now_leaving);
-        $time_leaving = $now_leaving->toTimeString();
-
-        $works = \App\Models\Work::factory()->create([
+        \App\Models\Work::factory()->create([
             'user_id' => $user->id,
-            'date' => $date,
-            'attendance' => $time_attendance,
-            'leaving' => $time_leaving,
+            'date' => $work1Date,
+            'attendance' => '01:00:00',
+            'leaving' => '09:00:00',
             'update' => 'no',
         ]);
+
+        \App\Models\Work::factory()->create([
+            'user_id' => $user->id,
+            'date' => $work2Date,
+            'attendance' => '10:00:00',
+            'leaving' => '18:00:00',
+            'update' => 'no',
+        ]);
+
 
         $this->actingAs($user);
 
         $response = $this->get('/attendance/list?month=2026-02');
         $response->assertStatus(200);
         $response->assertSee('02/02');
-        $response->assertSee('1:00');
-        $response->assertSee('9:00');
-        $response->assertSee('8:00');
+        $response->assertSee('02/03');
+        $response->assertSee('01:00');
+        $response->assertSee('09:00');
+        $response->assertSee('10:00');
+        $response->assertSee('18:00');
         
         CarbonImmutable::setTestNow();
     }
@@ -157,7 +162,7 @@ class AttendanceListTest extends TestCase
         $now = new CarbonImmutable('2026-02-02T09:00:00+09:00');
         CarbonImmutable::setTestNow($now);
 
-        $works = \App\Models\Work::factory()->create([
+        $work = \App\Models\Work::factory()->create([
             'user_id' => $user->id,
             'date' => $now->toDateString(),
             'attendance' => '09:00:00',
@@ -167,9 +172,15 @@ class AttendanceListTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->get('/attendance/detail/' . $works->id);
+        $response = $this->get('/attendance/list?month=2026-02');
         $response->assertStatus(200);
+
+        $response = $this->get('/attendance/detail/' . $work->id);
+        $response->assertStatus(200);
+
         $response->assertSee('テスト');
+        $response->assertSee('09:00');
+        $response->assertSee('18:00');
         
         CarbonImmutable::setTestNow();
     }

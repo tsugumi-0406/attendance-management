@@ -84,7 +84,7 @@ class AdminAttendanceDetailTest extends TestCase
         ]);
         
         $response->assertSessionHasErrors([
-            'attendance' => '出勤時間が不適切な値です',
+            'attendance' => '出勤時間もしくは退勤時間が不適切な値です',
         ]);
         
         CarbonImmutable::setTestNow();

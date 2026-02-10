@@ -73,6 +73,12 @@ class LeavingTest extends TestCase
         $date = $now_leaving->toDateString();
         $time = $now_leaving->toTimeString();
         $response = $this->post('/stamp/leave');
+
+        $work = \App\Models\Work::where('user_id', $user->id)
+            ->where('date', '2026-02-02')
+            ->first();
+        $this->assertNotNull($work);
+        $this->assertEquals('01:00:00', $work->leaving);
         
         $response = $this->get('/attendance/list?month=2026-02');
         $response->assertSee($now_leaving->format('m/d'));
