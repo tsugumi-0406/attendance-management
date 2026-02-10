@@ -18,7 +18,7 @@
     <main>
         <div class="main-sentence">
             <p class="main-sente__text">
-                登録されたメールアドレスに確認メールを送付しました。
+                登録していただいたメールアドレスに認証メールを送付しました。
                 <br>メール認証を完了してください。</br>
             </p>
             <button class="main-form__button" onclick="window.open('https://mailtrap.io/inboxes/4210090/messages/5327534376', '_blank')">認証はこちらから</button>

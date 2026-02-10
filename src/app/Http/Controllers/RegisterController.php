@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\RegisterRequest;
+
 
 class RegisterController extends Controller
 {
     // 会員登録画面の表示
-    public function register(RegisterRequest $request)
+    public function register(Request $request)
     {
         return view('register');
     }
