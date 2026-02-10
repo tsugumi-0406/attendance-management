@@ -32,8 +32,6 @@ class AttendanceTest extends TestCase
         $response->assertSee('出勤');
 
         $now = CarbonImmutable::now();
-        $date = $now->toDateString();
-        $time = $now->toTimeString();
 
         $response = $this->post('/stamp/attendance');
 
@@ -83,15 +81,12 @@ class AttendanceTest extends TestCase
 
         $now = new CarbonImmutable('2026-02-02T00:00:00+09:00');
         CarbonImmutable::setTestNow($now);
-        $date = $now->toDateString();
-        $time = $now->toTimeString();
 
-        $response = $this->post('/stamp/attendance');
-
-        $date_carbon = Carbon::parse($date);
-        $time_carbon = Carbon::parse($time);
-        
+        $this->from('/attendance')->post('/stamp/attendance');
+               
         $response = $this->get('/attendance/list?month=2026-02');
+        $response->assertStatus(200);
+        
         $response->assertSee($now->format('m/d'));
         $response->assertSee($now->format('H:i'));
 

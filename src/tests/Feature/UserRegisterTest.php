@@ -66,9 +66,12 @@ class UserRegisterTest extends TestCase
             'password_confirmation' => 'test',
         ]);
 
-        $response->assertSessionHasErrors([
-            'password' => 'パスワードは8文字以上で入力してください',
-        ]);
+        $response->assertSessionHasErrors(['password']);
+
+        $this->assertEquals(
+            'パスワードは8文字以上で入力してください',
+            session('errors')->first('password')
+        );
     }
 
     // パスワードが確認用パスワードと一致しない場合、バリデーションメッセージが表示される
@@ -84,28 +87,32 @@ class UserRegisterTest extends TestCase
             'password_confirmation' => 'test12345',
         ]);
 
-        $response->assertSessionHasErrors([
-            'password_confirmation' => 'パスワードと一致しません',
-        ]);
+        $response->assertSessionHasErrors(['password']);
+        $this->assertEquals(
+            'パスワードと一致しません',
+            session('errors')->first('password')
+        );
     }
 
-    // パスワードが入力されていない場合、バリデーションメッセージが表示される
-    public function test_register_password_required_validation()
-    {
-        $response = $this->get('/register');
-        $response->assertStatus(200);
+        // パスワードが入力されていない場合、バリデーションメッセージが表示される
+        public function test_register_password_required_validation()
+        {
+            $response = $this->get('/register');
+            $response->assertStatus(200);
 
-        $response = $this->from('/register')->post('/register', [
-            'name' => 'aaa',
-            'email' => 'bbb@ccc.com',
-            'password' => '',
-            'password_confirmation' => 'test12345',
-        ]);
+            $response = $this->from('/register')->post('/register', [
+                'name' => 'aaa',
+                'email' => 'bbb@ccc.com',
+                'password' => '',
+                'password_confirmation' => 'test12345',
+            ]);
 
-        $response->assertSessionHasErrors([
-            'password' => 'パスワードを入力してください',
-        ]);
-    }
+            $response->assertSessionHasErrors(['password']);
+            $this->assertEquals(
+                'パスワードを入力してください',
+                session('errors')->first('password')
+            );
+        }
 
     // 全ての項目が入力されている場合、会員情報が登録され、プロフィール設定画面に遷移される
     public function test_register_success_redirects_to_profile()

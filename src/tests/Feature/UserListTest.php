@@ -97,6 +97,7 @@ class UserListTest extends TestCase
         CarbonImmutable::setTestNow($now);
 
         $before_month = $now->subMonth()->setDay(15);
+        $thisMonth   = $now->setDay(10);
 
         $work = \App\Models\Work::factory()->create([
             'user_id' => $user->id,
@@ -106,18 +107,30 @@ class UserListTest extends TestCase
             'update' => 'no',
         ]);
 
+        \App\Models\Work::factory()->create([
+            'user_id' => $user->id,
+            'date' => $thisMonth->toDateString(),
+            'attendance' => '10:00:00',
+            'leaving' => '19:00:00',
+            'update' => 'no',
+        ]);
+
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
 
-        $link_day_before = Carbon::parse($now)->subMonth()->format('Y-m');
+        $link_month_before = Carbon::parse($now)->subMonth()->format('Y-m');
 
         $response = $this->get('/admin/attendance/staff/' . $user->id);
         $response->assertStatus(200);
-        $response = $this->get('/admin/attendance/staff/' . $user->id . '?month=' .  $link_day_before);
+        $response = $this->get('/admin/attendance/staff/' . $user->id . '?month=' .  $link_month_before);
         $response->assertSee($now->subMonth()->format('Y/m'));
         $response->assertSee($before_month->format('m/d'));
         $response->assertSee('09:00');
         $response->assertSee('18:00');
+
+        $response->assertDontSee($thisMonth->format('m/d'));
+        $response->assertDontSee('10:00');
+        $response->assertDontSee('19:00');
         
         CarbonImmutable::setTestNow();
     }
@@ -133,28 +146,42 @@ class UserListTest extends TestCase
         $now = new CarbonImmutable('2026-02-02T09:00:00+09:00');
         CarbonImmutable::setTestNow($now);
 
-        $after_month = $now->addMonth()->setDay(15);
+        $afterMonth = $now->addMonth()->setDay(15);
+        $thisMonth  = $now->setDay(10);
 
         $work = \App\Models\Work::factory()->create([
             'user_id' => $user->id,
-            'date' => $after_month->toDateString(),
+            'date' => $afterMonth->toDateString(),
             'attendance' => '09:00:00',
             'leaving' => '18:00:00',
+            'update' => 'no',
+        ]);
+
+        \App\Models\Work::factory()->create([
+            'user_id' => $user->id,
+            'date' => $thisMonth->toDateString(),
+            'attendance' => '10:00:00',
+            'leaving' => '19:00:00',
             'update' => 'no',
         ]);
 
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
 
-        $link_day_after = Carbon::parse($now)->addMonth()->format('Y-m');
+        $link_month_after = Carbon::parse($now)->addMonth()->format('Y-m');
 
         $response = $this->get('/admin/attendance/staff/' . $user->id);
         $response->assertStatus(200);
-        $response = $this->get('/admin/attendance/staff/' . $user->id . '?month=' .  $link_day_after);
+        $response = $this->get('/admin/attendance/staff/' . $user->id . '?month=' .  $link_month_after);
         $response->assertSee($now->addMonth()->format('Y/m'));
-        $response->assertSee($after_month->format('m/d'));
+        $response->assertSee($afterMonth->format('m/d'));
         $response->assertSee('09:00');
         $response->assertSee('18:00');
+
+        $response->assertDontSee($thisMonth->format('m/d'));
+        $response->assertDontSee('10:00');
+        $response->assertDontSee('19:00');
+
         
         CarbonImmutable::setTestNow();
     }
@@ -182,11 +209,14 @@ class UserListTest extends TestCase
         $admin = \App\Models\Admin::factory()->create();
         $this->actingAs($admin, 'admin');
 
-        $response = $this->get('/admin/attendance/staff/' . $user->id);
-        $response->assertStatus(200);
-        $response = $this->get("/admin/attendance/{$work->id}");
-        $response->assertStatus(200);
-        $response->assertSee('テスト');
+        $list = $this->get('/admin/attendance/staff/' . $user->id);
+        $list->assertStatus(200);
+
+        $list->assertSee('/admin/attendance/' . $work->id);
+
+        $detail = $this->get('/admin/attendance/' . $work->id);
+        $detail->assertStatus(200);
+        $detail->assertSee($user->name);
         
         CarbonImmutable::setTestNow();
     }

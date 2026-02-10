@@ -87,7 +87,7 @@ class UserDetailTest extends TestCase
         $now = new CarbonImmutable('2026-02-02T09:00:00+09:00');
         CarbonImmutable::setTestNow($now);
 
-        $works = \App\Models\Work::factory()->create([
+        $work = \App\Models\Work::factory()->create([
             'user_id' => $user->id,
             'date' => $now->toDateString(),
             'attendance' => '09:00:00',
@@ -97,7 +97,7 @@ class UserDetailTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->get('/attendance/detail/' . $works->id);
+        $response = $this->get('/attendance/detail/' . $work->id);
         $response->assertStatus(200);
         $response->assertSee('09:00');
         $response->assertSee('18:00');

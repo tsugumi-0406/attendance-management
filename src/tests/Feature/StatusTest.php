@@ -16,8 +16,9 @@ class StatusTest extends TestCase
      *
      * @return void
      */
+
     // 勤務外の場合、勤怠ステータスが正しく表示される
-    public function test_day_time_view()
+    public function test_status_off_view()
     {
         $user = \App\Models\User::factory()->create([
             'email' => 'test@example.com',
