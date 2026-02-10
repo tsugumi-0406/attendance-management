@@ -88,13 +88,14 @@ class StaffAttendanceListController extends Controller
     {
         $user_id = $id;
 
-        $year_month = $request->query('month');
+        $year_month = $request->query('month', now()->format('Y-m'));
+        $base = Carbon::createFromFormat('Y-m', $year_month);
         $list_day = $year_month . "-01";
         $base_date = Carbon::parse($list_day);
         $base_date_next = Carbon::parse($list_day);
         $next_date = $base_date_next->addMonth()->subDay();
-        $firstDateOfMonth = $base_date;  
-        $lastDateOfMonth = $next_date;
+        $firstDateOfMonth = $base->copy()->startOfMonth()->startOfDay();
+        $lastDateOfMonth  = $base->copy()->endOfMonth()->endOfDay();
 
         $works = Work::where('user_id', $user_id)
             ->whereBetween('date', [$firstDateOfMonth, $lastDateOfMonth])
