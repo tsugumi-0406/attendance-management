@@ -18,7 +18,7 @@ Laravel 環境構築
 8. exit
 9. docker-compose exec mysql mysql -uroot -p
 10. root
-11. CREATE DATABASE test;
+11. CREATE DATABASE demo_test;
 
  
 ## URL
