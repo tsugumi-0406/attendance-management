@@ -10,7 +10,7 @@
     <div class="main__inner">
         <div class="main-title">
             <div class="marin-title__div">a</div>
-            <h1 class="main-title__sentence"> {{ $base_date->format('Y'); }}年{{ $base_date->format('n'); }}月{{ $base_date->format('d'); }}日の勤怠</h1>
+            <h1 class="main-title__sentence"> {{ $base_date->format('Y'); }}年{{ $base_date->format('n'); }}月{{ $base_date->format('j'); }}日の勤怠</h1>
         </div>
         <div class="day">
             <div class="day-before">
