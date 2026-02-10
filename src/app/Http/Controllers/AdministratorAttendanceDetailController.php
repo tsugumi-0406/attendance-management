@@ -28,7 +28,7 @@ class AdministratorAttendanceDetailController extends Controller
             ->where('date', $work->date)
             ->get();
         
-        $unapproved_work = UnapprovedWork::where('work_id', $work->user_id)
+        $unapproved_work = UnapprovedWork::where('work_id', $work->id)
                 ->first();
 
         $unapproved_breaks = UnapprovedBreak::where('user_id', $user->id)
