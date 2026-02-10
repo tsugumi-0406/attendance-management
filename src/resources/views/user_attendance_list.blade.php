@@ -6,7 +6,6 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 @endsection
 
-
 @section('content')
     <div class="main__inner">
         <div class="main-title">
